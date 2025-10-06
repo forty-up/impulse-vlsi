@@ -10,7 +10,7 @@ interface FormData {
   email: string;
   serviceType: string;
   specificSelection: string;
-  requirements: string;
+  requirements?: string;
 }
 
 const schema = yup.object({

@@ -15,6 +15,20 @@ import {
   ChevronLeft,
 } from 'lucide-react';
 
+interface SuccessStory {
+  name: string;
+  course: string;
+  company: string;
+  image: string;
+  quote: string;
+  designation?: string;
+  location?: string;
+  package?: string;
+  college?: string;
+  branch?: string;
+  yop?: string;
+}
+
 const PlacementsPage: React.FC = () => {
   const [selectedYear, setSelectedYear] = useState<string>('2024');
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -80,7 +94,7 @@ const PlacementsPage: React.FC = () => {
     },
   ];
 
-  const successStories = [
+  const successStories: SuccessStory[] = [
     {
       name: 'Yuvaraj K E',
       course: 'Hardware Design',

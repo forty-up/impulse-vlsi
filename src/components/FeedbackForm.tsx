@@ -17,7 +17,7 @@ interface FeedbackFormData {
   valueForMoney: string;
   wouldRecommend: string;
   favoriteFeature: string;
-  additionalComments: string;
+  additionalComments?: string;
 }
 
 const schema = yup.object({

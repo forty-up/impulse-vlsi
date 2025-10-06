@@ -356,7 +356,7 @@ const CoursesPage: React.FC = () => {
                 <div className="mb-6">
                   <h4 className="font-semibold text-gray-900 mb-2">Tools:</h4>
                   <div className="flex flex-wrap gap-2">
-                    {course.tools.map((tool, toolIndex) => (
+                    {course.tools.map((tool: string, toolIndex: number) => (
                       <span
                         key={toolIndex}
                         className="px-2 py-1 bg-gray-100 text-gray-700 text-xs rounded"
