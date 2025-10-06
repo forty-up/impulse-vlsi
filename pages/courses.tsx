@@ -338,7 +338,7 @@ const CoursesPage: React.FC = () => {
                 <div className="mb-6">
                   <h4 className="font-semibold text-gray-900 mb-2">Key Topics:</h4>
                   <ul className="space-y-1">
-                    {course.features.slice(0, 3).map((feature, featureIndex) => (
+                    {course.features.slice(0, 3).map((feature: string, featureIndex: number) => (
                       <li key={featureIndex} className="flex items-center text-sm text-gray-600">
                         <CheckCircle className="w-3 h-3 text-success-500 mr-2 flex-shrink-0" />
                         {feature}
