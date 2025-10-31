@@ -480,16 +480,16 @@ const HomePage: React.FC = () => {
             </p>
           </div>
 
-          <div className="relative max-w-4xl mx-auto">
-            <div className="card p-8 md:p-12">
-              <div className="flex items-center justify-between mb-6">
+          <div className="relative max-w-4xl mx-auto px-4 md:px-0">
+            <div className="card p-6 sm:p-8 md:p-12">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6 gap-3">
                 <div className="flex items-center">
                   {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                    <Star key={i} className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-400 fill-current" />
                   ))}
                 </div>
-                <div className="flex items-center text-gray-500 text-sm">
-                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                <div className="flex items-center text-gray-500 text-xs sm:text-sm">
+                  <svg className="w-4 h-4 sm:w-5 sm:h-5 mr-1 sm:mr-2" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
                     <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
                     <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
@@ -499,43 +499,63 @@ const HomePage: React.FC = () => {
                 </div>
               </div>
 
-              <blockquote className="text-lg md:text-xl text-gray-700 mb-6">
+              <blockquote className="text-base sm:text-lg md:text-xl text-gray-700 mb-6 leading-relaxed">
                 "{testimonials[currentTestimonial].text}"
               </blockquote>
 
-              <div className="flex items-center justify-between">
+              <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
                 <div className="flex items-center">
-                  <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full mr-4 flex items-center justify-center text-white font-bold text-lg">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full mr-3 sm:mr-4 flex items-center justify-center text-white font-bold text-base sm:text-lg">
                     {testimonials[currentTestimonial].name.charAt(0)}
                   </div>
                   <div>
-                    <div className="font-semibold text-gray-900">
+                    <div className="font-semibold text-gray-900 text-sm sm:text-base">
                       {testimonials[currentTestimonial].name}
                     </div>
-                    <div className="text-gray-600 text-sm">
+                    <div className="text-gray-600 text-xs sm:text-sm">
                       {testimonials[currentTestimonial].designation}
                     </div>
                   </div>
                 </div>
-                <div className="text-gray-500 text-sm">
+                <div className="text-gray-500 text-xs sm:text-sm">
                   {testimonials[currentTestimonial].timeAgo}
                 </div>
               </div>
             </div>
 
-            {/* Navigation Buttons */}
+            {/* Navigation Buttons - Hidden on mobile, visible on md+ */}
             <button
               onClick={prevTestimonial}
-              className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow duration-300"
+              className="hidden md:flex absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-shadow duration-300"
+              aria-label="Previous testimonial"
             >
               <ChevronLeft className="w-6 h-6 text-gray-600" />
             </button>
             <button
               onClick={nextTestimonial}
-              className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow duration-300"
+              className="hidden md:flex absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 w-12 h-12 bg-white rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-shadow duration-300"
+              aria-label="Next testimonial"
             >
               <ChevronRight className="w-6 h-6 text-gray-600" />
             </button>
+
+            {/* Mobile Navigation Buttons */}
+            <div className="flex md:hidden justify-center gap-4 mt-6">
+              <button
+                onClick={prevTestimonial}
+                className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow duration-300"
+                aria-label="Previous testimonial"
+              >
+                <ChevronLeft className="w-5 h-5 text-gray-600" />
+              </button>
+              <button
+                onClick={nextTestimonial}
+                className="w-10 h-10 bg-white rounded-full shadow-lg flex items-center justify-center hover:shadow-xl transition-shadow duration-300"
+                aria-label="Next testimonial"
+              >
+                <ChevronRight className="w-5 h-5 text-gray-600" />
+              </button>
+            </div>
 
             {/* Dots Indicator */}
             <div className="carousel-dots">
@@ -556,27 +576,27 @@ const HomePage: React.FC = () => {
       {/* FAQ Section */}
       <section className="section-padding bg-gray-50">
         <div className="container-max">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
+          <div className="text-center mb-12 px-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
               Frequently Asked Questions
             </h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600">
               Get answers to common questions about our services and courses
             </p>
           </div>
 
-          <div className="max-w-3xl mx-auto space-y-4">
+          <div className="max-w-3xl mx-auto space-y-4 px-4">
             {faqs.map((faq, index) => (
               <div key={index} className="card">
                 <button
                   onClick={() => setOpenFaq(openFaq === index ? null : index)}
-                  className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-300"
+                  className="w-full p-4 sm:p-6 text-left flex items-start sm:items-center justify-between hover:bg-gray-50 transition-colors duration-300 gap-3"
                 >
-                  <span className="font-semibold text-gray-900">{faq.question}</span>
+                  <span className="font-semibold text-gray-900 text-sm sm:text-base pr-2">{faq.question}</span>
                   {openFaq === index ? (
-                    <Minus className="w-5 h-5 text-gray-500" />
+                    <Minus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 flex-shrink-0 mt-1 sm:mt-0" />
                   ) : (
-                    <Plus className="w-5 h-5 text-gray-500" />
+                    <Plus className="w-4 h-4 sm:w-5 sm:h-5 text-gray-500 flex-shrink-0 mt-1 sm:mt-0" />
                   )}
                 </button>
 
@@ -585,8 +605,8 @@ const HomePage: React.FC = () => {
                     openFaq === index ? 'open' : ''
                   }`}
                 >
-                  <div className="px-6 pb-6">
-                    <p className="text-gray-600">{faq.answer}</p>
+                  <div className="px-4 sm:px-6 pb-4 sm:pb-6">
+                    <p className="text-gray-600 text-sm sm:text-base">{faq.answer}</p>
                   </div>
                 </div>
               </div>

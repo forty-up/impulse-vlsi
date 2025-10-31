@@ -119,7 +119,7 @@ const AboutPage: React.FC = () => {
       {/* Hero Banner */}
       <section
         ref={heroRef}
-        className="relative py-24 md:py-32 overflow-hidden"
+        className="relative py-20 md:py-24 lg:py-32 overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, #7c2d12 0%, #f97316 100%)',
         }}
@@ -133,12 +133,12 @@ const AboutPage: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-center text-white"
+            className="text-center text-white px-4"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-shadow-lg">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6 text-shadow-lg">
               About <span className="text-accent-500">Impulse-VLSI</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 max-w-3xl mx-auto">
               Pioneering excellence in VLSI design through innovation, education, and industry collaboration
             </p>
           </motion.div>
@@ -147,30 +147,30 @@ const AboutPage: React.FC = () => {
 
       {/* Our Philosophy Section */}
       <section ref={philosophyRef} className="section-padding">
-        <div className="container-max">
+        <div className="container-max px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={philosophyInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="card p-8 md:p-12"
+            className="card p-6 sm:p-8 md:p-12"
           >
-            <div className="flex items-center mb-6">
-              <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mr-6">
-                <Lightbulb className="w-8 h-8 text-primary-900" />
+            <div className="flex flex-col sm:flex-row items-start sm:items-center mb-6 gap-4">
+              <div className="w-12 h-12 sm:w-16 sm:h-16 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <Lightbulb className="w-6 h-6 sm:w-8 sm:h-8 text-primary-900" />
               </div>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900">
                 Our Philosophy
               </h2>
             </div>
 
             <div className="prose prose-lg max-w-none">
-              <p className="text-xl text-gray-700 leading-relaxed mb-6">
+              <p className="text-base sm:text-lg md:text-xl text-gray-700 leading-relaxed mb-4 sm:mb-6">
                 Impulse VLSI is founded on the principle of bridging the gap between academic knowledge
                 and industry requirements in the field of Very Large Scale Integration (VLSI) design.
                 We believe that practical, hands-on experience combined with theoretical understanding
                 creates the foundation for innovation in semiconductor technology.
               </p>
-              <p className="text-lg text-gray-600 leading-relaxed">
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
                 Our philosophy centers on empowering individuals and organizations with cutting-edge
                 knowledge, fostering creativity, and building sustainable partnerships that drive
                 technological advancement in the semiconductor industry.
@@ -182,18 +182,18 @@ const AboutPage: React.FC = () => {
 
       {/* Who We Are Section */}
       <section ref={whoWeAreRef} className="section-padding bg-gray-50">
-        <div className="container-max">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+        <div className="container-max px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               animate={whoWeAreInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6 }}
             >
               <div className="aspect-square bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl flex items-center justify-center">
-                <div className="text-white text-center">
-                  <Users className="w-24 h-24 mx-auto mb-4 opacity-20" />
-                  <p className="text-2xl font-bold">Innovation</p>
-                  <p className="text-lg">Through Education</p>
+                <div className="text-white text-center p-4">
+                  <Users className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto mb-3 sm:mb-4 opacity-20" />
+                  <p className="text-xl sm:text-2xl font-bold">Innovation</p>
+                  <p className="text-base sm:text-lg">Through Education</p>
                 </div>
               </div>
             </motion.div>
@@ -203,12 +203,12 @@ const AboutPage: React.FC = () => {
               animate={whoWeAreInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.2 }}
             >
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4 sm:mb-6">
                 Who We Are
               </h2>
 
-              <div className="space-y-6">
-                <p className="text-lg text-gray-700 leading-relaxed">
+              <div className="space-y-4 sm:space-y-6">
+                <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
                   Impulse-VLSI is a premier training and consultancy organization dedicated to
                   advancing VLSI design capabilities across India and beyond. Founded by industry
                   veterans with decades of combined experience in semiconductor design and
@@ -216,28 +216,28 @@ const AboutPage: React.FC = () => {
                   consultancy project.
                 </p>
 
-                <p className="text-lg text-gray-700 leading-relaxed">
+                <p className="text-sm sm:text-base md:text-lg text-gray-700 leading-relaxed">
                   Our team comprises seasoned professionals from leading semiconductor companies,
                   distinguished academics, and industry thought leaders who share a common vision
                   of excellence in VLSI education and innovation.
                 </p>
 
-                <div ref={statsRef} className="grid grid-cols-2 gap-4 md:gap-6 mt-8">
-                  <div className="text-center">
-                    <div className="text-2xl md:text-3xl font-bold text-primary-900 mb-2">{studentCount}+</div>
-                    <div className="text-sm md:text-base text-gray-600">Students Trained</div>
+                <div ref={statsRef} className="grid grid-cols-2 gap-3 sm:gap-4 md:gap-6 mt-6 sm:mt-8">
+                  <div className="text-center p-3 sm:p-4 bg-white rounded-lg">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-900 mb-1 sm:mb-2">{studentCount}+</div>
+                    <div className="text-xs sm:text-sm md:text-base text-gray-600">Students Trained</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl md:text-3xl font-bold text-primary-900 mb-2">{partnerCount}+</div>
-                    <div className="text-sm md:text-base text-gray-600">Industry Partners</div>
+                  <div className="text-center p-3 sm:p-4 bg-white rounded-lg">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-900 mb-1 sm:mb-2">{partnerCount}+</div>
+                    <div className="text-xs sm:text-sm md:text-base text-gray-600">Industry Partners</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl md:text-3xl font-bold text-primary-900 mb-2">{yearCount}+</div>
-                    <div className="text-sm md:text-base text-gray-600">Years Experience</div>
+                  <div className="text-center p-3 sm:p-4 bg-white rounded-lg">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-900 mb-1 sm:mb-2">{yearCount}+</div>
+                    <div className="text-xs sm:text-sm md:text-base text-gray-600">Years Experience</div>
                   </div>
-                  <div className="text-center">
-                    <div className="text-2xl md:text-3xl font-bold text-primary-900 mb-2">{successCount}%</div>
-                    <div className="text-sm md:text-base text-gray-600">Success Rate</div>
+                  <div className="text-center p-3 sm:p-4 bg-white rounded-lg">
+                    <div className="text-xl sm:text-2xl md:text-3xl font-bold text-primary-900 mb-1 sm:mb-2">{successCount}%</div>
+                    <div className="text-xs sm:text-sm md:text-base text-gray-600">Success Rate</div>
                   </div>
                 </div>
               </div>
@@ -248,45 +248,45 @@ const AboutPage: React.FC = () => {
 
       {/* What We Do Section */}
       <section ref={whatWeDoRef} className="section-padding">
-        <div className="container-max">
+        <div className="container-max px-4">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={whatWeDoInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-center mb-12"
+            className="text-center mb-8 sm:mb-12"
           >
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-3 sm:mb-4">
               What We Do
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
               Our comprehensive approach to VLSI education and industry solutions
             </p>
           </motion.div>
 
-          <div className="space-y-8">
+          <div className="space-y-4 sm:space-y-6 md:space-y-8">
             {processSteps.map((step, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 animate={whatWeDoInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="card p-8 md:p-12"
+                className="card p-6 sm:p-8 md:p-12"
               >
-                <div className="flex flex-col md:flex-row items-start md:items-center space-y-6 md:space-y-0 md:space-x-8">
-                  <div className="flex items-center space-x-6">
-                    <div className="text-5xl font-bold text-primary-100">
+                <div className="flex flex-col md:flex-row items-start md:items-center space-y-4 sm:space-y-6 md:space-y-0 md:space-x-8">
+                  <div className="flex items-center space-x-4 sm:space-x-6">
+                    <div className="text-3xl sm:text-4xl md:text-5xl font-bold text-primary-100">
                       {step.step}
                     </div>
-                    <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center">
-                      <step.icon className="w-8 h-8 text-primary-900" />
+                    <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-primary-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <step.icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-primary-900" />
                     </div>
                   </div>
 
                   <div className="flex-1">
-                    <h3 className="text-2xl font-heading font-bold text-gray-900 mb-4">
+                    <h3 className="text-lg sm:text-xl md:text-2xl font-heading font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4">
                       {step.title}
                     </h3>
-                    <p className="text-lg text-gray-600 leading-relaxed">
+                    <p className="text-sm sm:text-base md:text-lg text-gray-600 leading-relaxed">
                       {step.description}
                     </p>
                   </div>
@@ -299,17 +299,17 @@ const AboutPage: React.FC = () => {
 
       {/* Work Culture Section */}
       <section className="section-padding bg-gray-50">
-        <div className="container-max">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
+        <div className="container-max px-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-3 sm:mb-4">
               Our Work Culture
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
               A collaborative environment where innovation meets teamwork
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
             {[
               {
                 url: 'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80',

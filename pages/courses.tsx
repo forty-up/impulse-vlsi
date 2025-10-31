@@ -269,7 +269,7 @@ const CoursesPage: React.FC = () => {
       {/* Hero Banner */}
       <section
         ref={heroRef}
-        className="relative py-24 md:py-32 overflow-hidden"
+        className="relative py-20 md:py-24 lg:py-32 overflow-hidden"
         style={{
           background: 'linear-gradient(135deg, #7c2d12 0%, #f97316 100%)',
         }}
@@ -283,12 +283,12 @@ const CoursesPage: React.FC = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-center text-white"
+            className="text-center text-white px-4"
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-shadow-lg">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-4 sm:mb-6 text-shadow-lg">
               VLSI <span className="text-accent-500">Courses</span>
             </h1>
-            <p className="text-xl md:text-2xl text-gray-100 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl text-gray-100 max-w-3xl mx-auto">
               Master VLSI design with our comprehensive, industry-focused training programs
             </p>
           </motion.div>
@@ -297,22 +297,22 @@ const CoursesPage: React.FC = () => {
 
       {/* Filter Section */}
       <section className="section-padding bg-gray-50">
-        <div className="container-max">
-          <div className="card p-6">
-            <div className="flex items-center mb-4">
-              <Sliders className="w-5 h-5 text-primary-900 mr-2" />
-              <h3 className="text-lg font-semibold text-gray-900">Filter Courses</h3>
+        <div className="container-max px-4">
+          <div className="card p-4 sm:p-6">
+            <div className="flex items-center mb-3 sm:mb-4">
+              <Sliders className="w-4 h-4 sm:w-5 sm:h-5 text-primary-900 mr-2" />
+              <h3 className="text-base sm:text-lg font-semibold text-gray-900">Filter Courses</h3>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                   Category
                 </label>
                 <select
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="input-field"
+                  className="input-field text-sm sm:text-base"
                 >
                   {categories.map((category) => (
                     <option key={category.value} value={category.value}>
@@ -323,13 +323,13 @@ const CoursesPage: React.FC = () => {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">
+                <label className="block text-xs sm:text-sm font-medium text-gray-700 mb-2">
                   Skill Level
                 </label>
                 <select
                   value={selectedLevel}
                   onChange={(e) => setSelectedLevel(e.target.value)}
-                  className="input-field"
+                  className="input-field text-sm sm:text-base"
                 >
                   {levels.map((level) => (
                     <option key={level.value} value={level.value}>
@@ -340,7 +340,7 @@ const CoursesPage: React.FC = () => {
               </div>
             </div>
 
-            <div className="mt-4 text-sm text-gray-600">
+            <div className="mt-3 sm:mt-4 text-xs sm:text-sm text-gray-600">
               Showing {filteredCourses.length} of {courses.length} courses
             </div>
           </div>
@@ -349,65 +349,65 @@ const CoursesPage: React.FC = () => {
 
       {/* Courses Grid */}
       <section ref={coursesRef} className="section-padding">
-        <div className="container-max">
-          <div className="flex flex-wrap justify-center gap-8">
+        <div className="container-max px-4">
+          <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
             {filteredCourses.map((course, index) => (
               <motion.div
                 key={course.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={coursesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="card p-6 min-h-[850px] flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
+                className="card p-5 sm:p-6 min-h-[800px] sm:min-h-[850px] flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
               >
                 {/* Course Header */}
-                <div className="flex items-start justify-between mb-4">
-                  <div className="w-12 h-12 bg-primary-100 rounded-lg flex items-center justify-center">
-                    <course.icon className="w-6 h-6 text-primary-900" />
+                <div className="flex items-start justify-between mb-3 sm:mb-4">
+                  <div className="w-10 h-10 sm:w-12 sm:h-12 bg-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <course.icon className="w-5 h-5 sm:w-6 sm:h-6 text-primary-900" />
                   </div>
-                  <span className={`px-3 py-1 rounded-full text-xs font-medium ${getLevelColor(course.level)}`}>
+                  <span className={`px-2 sm:px-3 py-1 rounded-full text-xs font-medium ${getLevelColor(course.level)}`}>
                     {course.level.charAt(0).toUpperCase() + course.level.slice(1)}
                   </span>
                 </div>
 
-                <h3 className="text-xl font-heading font-bold text-gray-900 mb-3">
+                <h3 className="text-lg sm:text-xl font-heading font-bold text-gray-900 mb-2 sm:mb-3">
                   {course.title}
                 </h3>
 
-                <p className="text-gray-600 mb-4 flex-grow">
+                <p className="text-sm sm:text-base text-gray-600 mb-3 sm:mb-4 flex-grow">
                   {course.description}
                 </p>
 
                 {/* Course Stats */}
-                <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
+                <div className="grid grid-cols-2 gap-2 sm:gap-3 mb-3 sm:mb-4 text-xs sm:text-sm">
                   <div className="text-center p-2 bg-gray-50 rounded">
-                    <Clock className="w-4 h-4 text-gray-400 mx-auto mb-1" />
-                    <div className="text-gray-600 font-medium">{course.duration}</div>
+                    <Clock className="w-3 h-3 sm:w-4 sm:h-4 text-gray-400 mx-auto mb-1" />
+                    <div className="text-gray-600 font-medium text-xs sm:text-sm">{course.duration}</div>
                   </div>
                   <div className="text-center p-2 bg-gray-50 rounded">
-                    <Star className="w-4 h-4 text-yellow-400 mx-auto mb-1" />
-                    <div className="text-gray-600 font-medium">{course.rating}/5</div>
+                    <Star className="w-3 h-3 sm:w-4 sm:h-4 text-yellow-400 mx-auto mb-1" />
+                    <div className="text-gray-600 font-medium text-xs sm:text-sm">{course.rating}/5</div>
                   </div>
                   <div className="col-span-2 text-center p-2 bg-primary-50 rounded">
-                    <div className="text-primary-900 font-medium">{course.mode}</div>
+                    <div className="text-primary-900 font-medium text-xs sm:text-sm">{course.mode}</div>
                   </div>
                   <div className="col-span-2 text-center p-2 bg-green-50 rounded">
-                    <Award className="w-4 h-4 text-green-600 mx-auto mb-1" />
+                    <Award className="w-3 h-3 sm:w-4 sm:h-4 text-green-600 mx-auto mb-1" />
                     <div className="text-green-700 font-medium text-xs">{course.certification}</div>
                   </div>
                 </div>
 
                 {/* Key Features */}
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-2">Key Topics:</h4>
+                <div className="mb-4 sm:mb-6">
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Key Topics:</h4>
                   <ul className="space-y-1">
                     {course.features.slice(0, 3).map((feature: string, featureIndex: number) => (
-                      <li key={featureIndex} className="flex items-center text-sm text-gray-600">
-                        <CheckCircle className="w-3 h-3 text-success-500 mr-2 flex-shrink-0" />
-                        {feature}
+                      <li key={featureIndex} className="flex items-start text-xs sm:text-sm text-gray-600">
+                        <CheckCircle className="w-3 h-3 text-success-500 mr-2 flex-shrink-0 mt-0.5" />
+                        <span>{feature}</span>
                       </li>
                     ))}
                     {course.features.length > 3 && (
-                      <li className="text-sm text-gray-500">
+                      <li className="text-xs sm:text-sm text-gray-500 ml-5">
                         +{course.features.length - 3} more topics
                       </li>
                     )}
@@ -415,9 +415,9 @@ const CoursesPage: React.FC = () => {
                 </div>
 
                 {/* Tools */}
-                <div className="mb-6">
-                  <h4 className="font-semibold text-gray-900 mb-2">Tools:</h4>
-                  <div className="flex flex-wrap gap-2">
+                <div className="mb-4 sm:mb-6">
+                  <h4 className="font-semibold text-gray-900 mb-2 text-sm sm:text-base">Tools:</h4>
+                  <div className="flex flex-wrap gap-1.5 sm:gap-2">
                     {course.tools.map((tool: string, toolIndex: number) => (
                       <span
                         key={toolIndex}
@@ -430,21 +430,21 @@ const CoursesPage: React.FC = () => {
                 </div>
 
                 {/* CTA Button */}
-                <a href="/contact" className="btn-primary w-full group mt-auto flex items-center justify-center">
+                <a href="/contact" className="btn-primary w-full group mt-auto flex items-center justify-center text-sm sm:text-base py-2.5 sm:py-3">
                   <span>Enroll Now</span>
-                  <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
+                  <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
                 </a>
               </motion.div>
             ))}
           </div>
 
           {filteredCourses.length === 0 && (
-            <div className="text-center py-12">
-              <BookOpen className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-              <h3 className="text-xl font-semibold text-gray-600 mb-2">
+            <div className="text-center py-12 px-4">
+              <BookOpen className="w-12 h-12 sm:w-16 sm:h-16 text-gray-300 mx-auto mb-4" />
+              <h3 className="text-lg sm:text-xl font-semibold text-gray-600 mb-2">
                 No courses found
               </h3>
-              <p className="text-gray-500">
+              <p className="text-sm sm:text-base text-gray-500">
                 Try adjusting your filters to see more courses.
               </p>
             </div>
@@ -454,17 +454,17 @@ const CoursesPage: React.FC = () => {
 
       {/* Featured Benefits Section */}
       <section className="section-padding bg-gray-50">
-        <div className="container-max">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
+        <div className="container-max px-4">
+          <div className="text-center mb-8 sm:mb-12">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-3 sm:mb-4">
               Why Choose Our Courses?
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto">
               Industry-focused curriculum designed by experts for real-world success
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
             {[
               {
                 icon: BookOpen,
@@ -494,13 +494,13 @@ const CoursesPage: React.FC = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="text-center"
               >
-                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <benefit.icon className="w-8 h-8 text-primary-900" />
+                <div className="w-12 h-12 sm:w-14 sm:h-14 md:w-16 md:h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-3 sm:mb-4">
+                  <benefit.icon className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 text-primary-900" />
                 </div>
-                <h3 className="text-xl font-heading font-semibold text-gray-900 mb-3">
+                <h3 className="text-base sm:text-lg md:text-xl font-heading font-semibold text-gray-900 mb-2 sm:mb-3">
                   {benefit.title}
                 </h3>
-                <p className="text-gray-600">{benefit.description}</p>
+                <p className="text-sm sm:text-base text-gray-600">{benefit.description}</p>
               </motion.div>
             ))}
           </div>
