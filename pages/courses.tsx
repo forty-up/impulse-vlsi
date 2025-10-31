@@ -38,9 +38,8 @@ const CoursesPage: React.FC = () => {
 
   const levels = [
     { value: 'all', label: 'All Levels' },
-    { value: 'beginner', label: 'Beginner' },
-    { value: 'intermediate', label: 'Intermediate' },
-    { value: 'advanced', label: 'Advanced' },
+    { value: 'pro', label: 'Pro (12 weeks)' },
+    { value: 'excel', label: 'Excel (14 weeks)' },
   ];
 
   const courses = [
@@ -48,8 +47,10 @@ const CoursesPage: React.FC = () => {
     id: 1,
     title: 'Analog Circuit Design',
     category: 'analog',
-    level: 'intermediate',
+    level: 'pro',
     duration: '12 weeks',
+    mode: 'Online/Offline',
+    certification: 'MSME Certification',
     students: 450,
     rating: 4.8,
     price: 'Contact for pricing',
@@ -68,32 +69,12 @@ const CoursesPage: React.FC = () => {
   },
   {
     id: 2,
-    title: 'Physical Circuit Design',
-    category: 'physical',
-    level: 'advanced',
-    duration: '16 weeks',
-    students: 320,
-    rating: 4.9,
-    price: 'Contact for pricing',
-    icon: Cpu,
-    description: 'Advanced physical design course covering placement, routing, timing closure, and signoff methodologies.',
-    features: [
-      'Floorplanning strategies',
-      'Power planning and analysis',
-      'Clock tree synthesis',
-      'Static timing analysis',
-      'Physical verification (DRC/LVS)',
-      'Signoff methodologies',
-    ],
-    tools: ['Cadence Innovus', 'Synopsys ICC', 'Mentor Calibre'],
-    prerequisites: 'Digital design fundamentals',
-  },
-  {
-    id: 3,
-    title: 'Analog Layout Design',
+    title: 'Analog/Custom Layout Design',
     category: 'analog',
-    level: 'advanced',
+    level: 'excel',
     duration: '14 weeks',
+    mode: 'Online/Offline',
+    certification: 'MSME Certification',
     students: 210,
     rating: 4.7,
     price: 'Contact for pricing',
@@ -111,33 +92,37 @@ const CoursesPage: React.FC = () => {
     prerequisites: 'Analog circuit design knowledge',
   },
   {
-    id: 4,
-    title: 'Design for Testability (DFT)',
-    category: 'dft',
-    level: 'advanced',
-    duration: '10 weeks',
-    students: 180,
-    rating: 4.8,
+    id: 3,
+    title: 'Physical Design',
+    category: 'physical',
+    level: 'excel',
+    duration: '14 weeks',
+    mode: 'Online/Offline',
+    certification: 'MSME Certification',
+    students: 320,
+    rating: 4.9,
     price: 'Contact for pricing',
-    icon: CheckCircle,
-    description: 'Specialized course on DFT methodologies including scan, BIST, and fault coverage techniques.',
+    icon: Cpu,
+    description: 'Advanced physical design course covering placement, routing, timing closure, and signoff methodologies.',
     features: [
-      'Scan design and insertion',
-      'Built-in self-test (BIST)',
-      'JTAG and boundary scan',
-      'Fault models and coverage analysis',
-      'Memory test and repair',
-      'Low-power DFT strategies',
+      'Floorplanning strategies',
+      'Power planning and analysis',
+      'Clock tree synthesis',
+      'Static timing analysis',
+      'Physical verification (DRC/LVS)',
+      'Signoff methodologies',
     ],
-    tools: ['Mentor Tessent', 'Synopsys DFT Compiler', 'Cadence Modus'],
-    prerequisites: 'ASIC/Digital design fundamentals',
+    tools: ['Cadence Innovus', 'Synopsys ICC', 'Mentor Calibre'],
+    prerequisites: 'Digital design fundamentals',
   },
   {
-    id: 5,
-    title: 'Digital Design & Verification',
+    id: 4,
+    title: 'Digital/RTL Design & Verification',
     category: 'digital',
-    level: 'beginner',
-    duration: '14 weeks',
+    level: 'pro',
+    duration: '12 weeks',
+    mode: 'Online/Offline',
+    certification: 'MSME Certification',
     students: 680,
     rating: 4.7,
     price: 'Contact for pricing',
@@ -155,26 +140,100 @@ const CoursesPage: React.FC = () => {
     prerequisites: 'Basic programming knowledge',
   },
   {
-    id: 6,
-    title: 'Interpersonal & Soft Skills',
-    category: 'softskills',
-    level: 'beginner',
-    duration: '6 weeks',
-    students: 900,
-    rating: 4.6,
-    price: 'Free / Contact for details',
-    icon: Users,
-    description: 'Practical training in communication, teamwork, leadership, and professional skills essential for workplace success.',
+    id: 5,
+    title: 'Design for Testability',
+    category: 'dft',
+    level: 'excel',
+    duration: '14 weeks',
+    mode: 'Online/Offline',
+    certification: 'MSME Certification',
+    students: 180,
+    rating: 4.8,
+    price: 'Contact for pricing',
+    icon: CheckCircle,
+    description: 'Specialized course on DFT methodologies including scan, BIST, and fault coverage techniques.',
     features: [
-      'Effective communication techniques',
-      'Team collaboration and conflict resolution',
-      'Presentation and public speaking',
-      'Leadership and adaptability',
-      'Time management and productivity',
-      'Professional etiquette and networking',
+      'Scan design and insertion',
+      'Built-in self-test (BIST)',
+      'JTAG and boundary scan',
+      'Fault models and coverage analysis',
+      'Memory test and repair',
+      'Low-power DFT strategies',
     ],
-    tools: ['Role-play sessions', 'Workshops', 'Case studies'],
-    prerequisites: 'Open to all students',
+    tools: ['Mentor Tessent', 'Synopsys DFT Compiler', 'Cadence Modus'],
+    prerequisites: 'ASIC/Digital design fundamentals',
+  },
+  {
+    id: 6,
+    title: 'Design with FPGA',
+    category: 'fpga',
+    level: 'pro',
+    duration: '12 weeks',
+    mode: 'Online/Offline',
+    certification: 'MSME Certification',
+    students: 420,
+    rating: 4.6,
+    price: 'Contact for pricing',
+    icon: Settings,
+    description: 'Comprehensive FPGA design course covering HDL programming, synthesis, and implementation.',
+    features: [
+      'FPGA architecture and design flow',
+      'Verilog/VHDL for FPGA',
+      'Synthesis and optimization',
+      'Timing analysis and constraints',
+      'IP core integration',
+      'FPGA prototyping',
+    ],
+    tools: ['Xilinx Vivado', 'Intel Quartus', 'ModelSim'],
+    prerequisites: 'Digital electronics basics',
+  },
+  {
+    id: 7,
+    title: 'Embedded Systems / IOT',
+    category: 'embedded',
+    level: 'pro',
+    duration: '12 weeks',
+    mode: 'Online/Offline',
+    certification: 'MSME Certification',
+    students: 550,
+    rating: 4.7,
+    price: 'Contact for pricing',
+    icon: Sliders,
+    description: 'Practical embedded systems and IoT course covering microcontrollers, sensors, and IoT protocols.',
+    features: [
+      'Microcontroller programming',
+      'Sensor interfacing',
+      'IoT protocols (MQTT, HTTP)',
+      'Real-time operating systems',
+      'Wireless communication',
+      'Cloud integration',
+    ],
+    tools: ['Arduino', 'ESP32', 'Raspberry Pi', 'AWS IoT'],
+    prerequisites: 'Basic programming knowledge',
+  },
+  {
+    id: 8,
+    title: 'Post Silicon Validation',
+    category: 'validation',
+    level: 'excel',
+    duration: '14 weeks',
+    mode: 'Online/Offline',
+    certification: 'MSME Certification',
+    students: 280,
+    rating: 4.8,
+    price: 'Contact for pricing',
+    icon: Award,
+    description: 'Advanced course on post-silicon validation, debugging, and characterization techniques.',
+    features: [
+      'Silicon bring-up procedures',
+      'Functional validation',
+      'Performance characterization',
+      'Debug methodologies',
+      'Test automation',
+      'Failure analysis',
+    ],
+    tools: ['Oscilloscope', 'Logic Analyzer', 'Python scripting'],
+    prerequisites: 'Digital design and verification knowledge',
   },
 ];
 
@@ -212,7 +271,7 @@ const CoursesPage: React.FC = () => {
         ref={heroRef}
         className="relative py-24 md:py-32 overflow-hidden"
         style={{
-          background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
+          background: 'linear-gradient(135deg, #7c2d12 0%, #f97316 100%)',
         }}
       >
         <div className="absolute inset-0 opacity-10">
@@ -291,14 +350,14 @@ const CoursesPage: React.FC = () => {
       {/* Courses Grid */}
       <section ref={coursesRef} className="section-padding">
         <div className="container-max">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {filteredCourses.map((course, index) => (
               <motion.div
                 key={course.id}
                 initial={{ opacity: 0, y: 30 }}
                 animate={coursesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="card p-6 h-full flex flex-col"
+                className="card p-6 min-h-[850px] flex flex-col w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
               >
                 {/* Course Header */}
                 <div className="flex items-start justify-between mb-4">
@@ -319,18 +378,21 @@ const CoursesPage: React.FC = () => {
                 </p>
 
                 {/* Course Stats */}
-                <div className="grid grid-cols-3 gap-4 mb-4 text-sm">
-                  <div className="text-center">
+                <div className="grid grid-cols-2 gap-3 mb-4 text-sm">
+                  <div className="text-center p-2 bg-gray-50 rounded">
                     <Clock className="w-4 h-4 text-gray-400 mx-auto mb-1" />
-                    <div className="text-gray-600">{course.duration}</div>
+                    <div className="text-gray-600 font-medium">{course.duration}</div>
                   </div>
-                  <div className="text-center">
-                    <Users className="w-4 h-4 text-gray-400 mx-auto mb-1" />
-                    <div className="text-gray-600">{course.students}+ students</div>
-                  </div>
-                  <div className="text-center">
+                  <div className="text-center p-2 bg-gray-50 rounded">
                     <Star className="w-4 h-4 text-yellow-400 mx-auto mb-1" />
-                    <div className="text-gray-600">{course.rating}/5</div>
+                    <div className="text-gray-600 font-medium">{course.rating}/5</div>
+                  </div>
+                  <div className="col-span-2 text-center p-2 bg-primary-50 rounded">
+                    <div className="text-primary-900 font-medium">{course.mode}</div>
+                  </div>
+                  <div className="col-span-2 text-center p-2 bg-green-50 rounded">
+                    <Award className="w-4 h-4 text-green-600 mx-auto mb-1" />
+                    <div className="text-green-700 font-medium text-xs">{course.certification}</div>
                   </div>
                 </div>
 
@@ -441,26 +503,6 @@ const CoursesPage: React.FC = () => {
                 <p className="text-gray-600">{benefit.description}</p>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="section-padding bg-primary-900">
-        <div className="container-max text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-            Start Your VLSI Journey Today
-          </h2>
-          <p className="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-            Join thousands of professionals who have advanced their careers with our expert training.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/contact" className="btn-accent">
-              Get Course Information
-            </a>
-            {/* <a href="tel:+918147018156" className="btn-secondary">
-              Speak with Advisor
-            </a> */}
           </div>
         </div>
       </section>

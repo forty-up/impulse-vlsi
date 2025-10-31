@@ -2,6 +2,7 @@ import React from 'react';
 import Head from 'next/head';
 import Header from './Header';
 import Footer from './Footer';
+import Chatbot from './Chatbot';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -86,8 +87,10 @@ const Layout: React.FC<LayoutProps> = ({
                 addressCountry: 'India',
               },
               sameAs: [
-                'https://linkedin.com/company/impulse-vlsi',
-                'https://twitter.com/impulse_vlsi',
+                'https://www.linkedin.com/company/impulse-vlsi/',
+                'https://www.instagram.com/impulsevlsi?igsh=dmtyNXB6c3A4bTh1',
+                'https://youtube.com/@impulsevlsi9?si=uFKj7ajqY5GtwPCF',
+                'https://www.facebook.com/share/1BfS2SZRaT/',
               ],
               areaServed: 'Worldwide',
               serviceType: ['VLSI Design', 'Semiconductor Training', 'Technical Consultancy'],
@@ -102,6 +105,7 @@ const Layout: React.FC<LayoutProps> = ({
           {children}
         </main>
         <Footer />
+        <Chatbot />
       </div>
     </>
   );

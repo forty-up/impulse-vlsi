@@ -189,7 +189,7 @@ const FeedbackPage: React.FC = () => {
                 </div>
                 <h3 className="text-xl font-bold text-gray-900 mb-2">Call Us</h3>
                 <a href="tel:+918147018156" className="text-primary-900 font-semibold text-lg hover:underline">
-                  +91 8147018156
+                  +91-8147018156
                 </a>
                 <p className="text-gray-600 mt-2">Mon - Sat: 9:00 AM - 6:00 PM IST</p>
               </div>

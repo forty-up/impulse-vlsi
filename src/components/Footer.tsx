@@ -8,7 +8,8 @@ import {
   Facebook,
   Twitter,
   Linkedin,
-  Instagram
+  Instagram,
+  Youtube
 } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -25,11 +26,8 @@ const Footer: React.FC = () => {
 
   const services = [
     { name: 'Industrial Services', href: '/services#industrial' },
-    { name: 'Academic Services', href: '/services#academic' },
-    { name: 'Consultancy', href: '/services#consultancy' },
-    { name: 'Full Time Hiring', href: '/services#hiring' },
-    { name: 'Faculty Development', href: '/services#fdp' },
-    { name: 'Skill Development', href: '/services#skill' },
+    { name: 'Academic Services', href: '/services#academics' },
+    { name: 'Student Services', href: '/services#students' },
   ];
 
   const courses = [
@@ -42,10 +40,10 @@ const Footer: React.FC = () => {
   ];
 
   const socialLinks = [
-    { name: 'Facebook', href: '#', icon: Facebook },
-    { name: 'Twitter', href: '#', icon: Twitter },
-    { name: 'LinkedIn', href: '#', icon: Linkedin },
-    { name: 'Instagram', href: '#', icon: Instagram },
+    { name: 'LinkedIn', href: 'https://www.linkedin.com/company/impulse-vlsi/', icon: Linkedin },
+    { name: 'Instagram', href: 'https://www.instagram.com/impulsevlsi?igsh=dmtyNXB6c3A4bTh1', icon: Instagram },
+    { name: 'YouTube', href: 'https://youtube.com/@impulsevlsi9?si=uFKj7ajqY5GtwPCF', icon: Youtube },
+    { name: 'Facebook', href: 'https://www.facebook.com/share/1BfS2SZRaT/', icon: Facebook },
   ];
 
   return (
@@ -55,18 +53,16 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* Company Info */}
           <div className="space-y-6">
-            <Link href="/" className="inline-block">
+            <Link href="/" className="inline-block flex items-center space-x-2">
               <img
-                src="/images/logo.webp"
-                alt="Impulse-VLSI"
+                src="/images/log impulse.png"
+                alt="Impulse VLSI"
                 className="h-12 w-auto object-contain transition-transform duration-300 hover:scale-105"
               />
+              <span className="text-xl font-bold text-white">
+                Impulse VLSI<sup className="text-xs">®</sup>
+              </span>
             </Link>
-
-            <p className="text-gray-300 text-sm leading-relaxed">
-              Empowering innovation in VLSI design through industry-leading services
-              and comprehensive training programs. Building the future of semiconductor technology.
-            </p>
 
             {/* Social Links */}
             <div className="flex space-x-4">
@@ -74,6 +70,8 @@ const Footer: React.FC = () => {
                 <a
                   key={social.name}
                   href={social.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="w-10 h-10 bg-gray-800 rounded-lg flex items-center justify-center hover:bg-primary-500 transition-colors duration-300 group"
                   aria-label={social.name}
                 >
@@ -135,7 +133,7 @@ const Footer: React.FC = () => {
                       href="tel:+918147018156"
                       className="hover:text-white transition-colors duration-300"
                     >
-                      +91 8147018156
+                      +91-8147018156
                     </a>
                   </p>
                 </div>
@@ -158,9 +156,12 @@ const Footer: React.FC = () => {
               <div className="flex items-start space-x-3">
                 <MapPin className="w-5 h-5 text-primary-500 mt-0.5 flex-shrink-0" />
                 <div>
-                  <p className="text-gray-300 text-sm">
-                    VLSI Design Center<br />
-                    Innovation Hub, India
+                  <p className="text-gray-300 text-xs sm:text-sm leading-relaxed">
+                    Nirmala store, Bus stop,<br />
+                    50 Feet Main Rd, 2nd Block,<br />
+                    Hanumanthnagar, Banashankari 1st Stage,<br />
+                    Banashankari, Bengaluru,<br />
+                    Karnataka 560050, India
                   </p>
                 </div>
               </div>
@@ -175,18 +176,18 @@ const Footer: React.FC = () => {
         <div className="container-max px-4 py-6">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <p className="text-gray-400 text-sm">
-              © {currentYear} Impulse-VLSI. All rights reserved.
+              © {currentYear} Impulse VLSI®. All rights reserved.
             </p>
             <div className="flex space-x-6 text-sm">
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
+              <Link href="/privacy-policy" className="text-gray-400 hover:text-white transition-colors duration-300">
                 Privacy Policy
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
+              </Link>
+              <Link href="/terms-of-service" className="text-gray-400 hover:text-white transition-colors duration-300">
                 Terms of Service
-              </a>
-              <a href="#" className="text-gray-400 hover:text-white transition-colors duration-300">
+              </Link>
+              <Link href="/cookie-policy" className="text-gray-400 hover:text-white transition-colors duration-300">
                 Cookie Policy
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -5,36 +5,32 @@ import * as yup from 'yup';
 import { Send, CheckCircle, AlertCircle, Loader2 } from 'lucide-react';
 
 interface FormData {
-  fullName: string;
-  phoneNumber: string;
+  name: string;
   email: string;
-  serviceType: string;
-  specificSelection: string;
-  requirements?: string;
+  mobileNumber: string;
+  courseName: string;
+  comments?: string;
 }
 
 const schema = yup.object({
-  fullName: yup
+  name: yup
     .string()
-    .required('Full name is required')
+    .required('Name is required')
     .min(2, 'Name must be at least 2 characters'),
-  phoneNumber: yup
-    .string()
-    .required('Phone number is required')
-    .matches(/^[6-9]\d{9}$/, 'Please enter a valid Indian phone number'),
   email: yup
     .string()
     .required('Email is required')
     .email('Please enter a valid email address'),
-  serviceType: yup
+  mobileNumber: yup
     .string()
-    .required('Please select a service type'),
-  specificSelection: yup
+    .required('Mobile number is required')
+    .matches(/^[6-9]\d{9}$/, 'Please enter a valid Indian mobile number'),
+  courseName: yup
     .string()
-    .required('Please select a specific service'),
-  requirements: yup
+    .required('Please select a course'),
+  comments: yup
     .string()
-    .max(500, 'Requirements should not exceed 500 characters'),
+    .max(500, 'Comments should not exceed 500 characters'),
 });
 
 const ContactForm: React.FC = () => {
@@ -45,7 +41,6 @@ const ContactForm: React.FC = () => {
   const {
     register,
     handleSubmit,
-    watch,
     reset,
     formState: { errors, isValid },
   } = useForm<FormData>({
@@ -53,48 +48,17 @@ const ContactForm: React.FC = () => {
     mode: 'onChange',
   });
 
-  const serviceType = watch('serviceType');
-
-  const serviceOptions = [
-    { value: '', label: 'Select Service Type' },
-    { value: 'industrial', label: 'Industrial Services' },
-    { value: 'academic', label: 'Academic Services' },
-    { value: 'courses', label: 'VLSI Courses' },
+  const courseOptions = [
+    { value: '', label: 'Select Course' },
+    { value: 'analog-circuit-design', label: 'Analog Circuit Design' },
+    { value: 'analog-layout-design', label: 'Analog/Custom Layout Design' },
+    { value: 'physical-design', label: 'Physical Design' },
+    { value: 'digital-rtl-verification', label: 'Digital/RTL Design & Verification' },
+    { value: 'dft', label: 'Design for Testability' },
+    { value: 'fpga', label: 'Design with FPGA' },
+    { value: 'embedded-iot', label: 'Embedded Systems / IOT' },
+    { value: 'post-silicon', label: 'Post Silicon Validation' },
   ];
-
-  const getSpecificOptions = () => {
-    switch (serviceType) {
-      case 'industrial':
-        return [
-          { value: '', label: 'Select Industrial Service' },
-          { value: 'consultancy', label: 'Consultancy' },
-          { value: 'fulltime-hiring', label: 'Full Time Hiring' },
-          { value: 'co-hiring', label: 'Co-Hiring' },
-        ];
-      case 'academic':
-        return [
-          { value: '', label: 'Select Academic Service' },
-          { value: 'fdp', label: 'Faculty Development Program' },
-          { value: 'skill-development', label: 'Skill Development Program' },
-          { value: 'internships', label: 'Internships' },
-          { value: 'academic-projects', label: 'Academic Projects' },
-          { value: 'guidance', label: 'Guidance & Mentorship' },
-          { value: 'integrated-courses', label: 'Integrated Courses' },
-        ];
-      case 'courses':
-        return [
-          { value: '', label: 'Select Course' },
-          { value: 'analog-design', label: 'Analog Circuit Design' },
-          { value: 'physical-design', label: 'Physical Circuit Design' },
-          { value: 'digital-verification', label: 'Digital Design & Verification' },
-          { value: 'fpga-programming', label: 'FPGA Programming' },
-          { value: 'asic-design', label: 'ASIC Design' },
-          { value: 'system-verilog', label: 'System Verilog' },
-        ];
-      default:
-        return [{ value: '', label: 'Select Service Type First' }];
-    }
-  };
 
   const onSubmit = async (data: FormData) => {
     setIsSubmitting(true);
@@ -151,44 +115,27 @@ const ContactForm: React.FC = () => {
       )}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* Full Name */}
+        {/* Name */}
         <div>
-          <label htmlFor="fullName" className="block text-sm font-medium text-gray-700 mb-2">
-            Full Name *
+          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+            Name *
           </label>
           <input
             type="text"
-            id="fullName"
-            {...register('fullName')}
-            className={`input-field ${errors.fullName ? 'input-error' : ''}`}
-            placeholder="Enter your full name"
+            id="name"
+            {...register('name')}
+            className={`input-field ${errors.name ? 'input-error' : ''}`}
+            placeholder="Enter your name"
           />
-          {errors.fullName && (
-            <p className="error-message">{errors.fullName.message}</p>
-          )}
-        </div>
-
-        {/* Phone Number */}
-        <div>
-          <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700 mb-2">
-            Phone Number *
-          </label>
-          <input
-            type="tel"
-            id="phoneNumber"
-            {...register('phoneNumber')}
-            className={`input-field ${errors.phoneNumber ? 'input-error' : ''}`}
-            placeholder="Enter your phone number"
-          />
-          {errors.phoneNumber && (
-            <p className="error-message">{errors.phoneNumber.message}</p>
+          {errors.name && (
+            <p className="error-message">{errors.name.message}</p>
           )}
         </div>
 
         {/* Email */}
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-            Email Address *
+            Email Id *
           </label>
           <input
             type="email"
@@ -202,63 +149,58 @@ const ContactForm: React.FC = () => {
           )}
         </div>
 
-        {/* Service Type */}
+        {/* Mobile Number */}
         <div>
-          <label htmlFor="serviceType" className="block text-sm font-medium text-gray-700 mb-2">
-            Service/Course Type *
+          <label htmlFor="mobileNumber" className="block text-sm font-medium text-gray-700 mb-2">
+            Mobile Number *
+          </label>
+          <input
+            type="tel"
+            id="mobileNumber"
+            {...register('mobileNumber')}
+            className={`input-field ${errors.mobileNumber ? 'input-error' : ''}`}
+            placeholder="Enter your mobile number"
+          />
+          {errors.mobileNumber && (
+            <p className="error-message">{errors.mobileNumber.message}</p>
+          )}
+        </div>
+
+        {/* Course Name */}
+        <div>
+          <label htmlFor="courseName" className="block text-sm font-medium text-gray-700 mb-2">
+            Course Name *
           </label>
           <select
-            id="serviceType"
-            {...register('serviceType')}
-            className={`input-field ${errors.serviceType ? 'input-error' : ''}`}
+            id="courseName"
+            {...register('courseName')}
+            className={`input-field ${errors.courseName ? 'input-error' : ''}`}
           >
-            {serviceOptions.map((option) => (
+            {courseOptions.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.label}
               </option>
             ))}
           </select>
-          {errors.serviceType && (
-            <p className="error-message">{errors.serviceType.message}</p>
+          {errors.courseName && (
+            <p className="error-message">{errors.courseName.message}</p>
           )}
         </div>
 
-        {/* Specific Selection */}
+        {/* Comments */}
         <div>
-          <label htmlFor="specificSelection" className="block text-sm font-medium text-gray-700 mb-2">
-            Specific Selection *
-          </label>
-          <select
-            id="specificSelection"
-            {...register('specificSelection')}
-            className={`input-field ${errors.specificSelection ? 'input-error' : ''}`}
-            disabled={!serviceType}
-          >
-            {getSpecificOptions().map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-          {errors.specificSelection && (
-            <p className="error-message">{errors.specificSelection.message}</p>
-          )}
-        </div>
-
-        {/* Requirements */}
-        <div>
-          <label htmlFor="requirements" className="block text-sm font-medium text-gray-700 mb-2">
-            Describe Your Requirements
+          <label htmlFor="comments" className="block text-sm font-medium text-gray-700 mb-2">
+            Comments
           </label>
           <textarea
-            id="requirements"
+            id="comments"
             rows={5}
-            {...register('requirements')}
-            className={`input-field resize-none ${errors.requirements ? 'input-error' : ''}`}
-            placeholder="Tell us more about your specific needs and requirements..."
+            {...register('comments')}
+            className={`input-field resize-none ${errors.comments ? 'input-error' : ''}`}
+            placeholder="Any additional comments or requirements..."
           />
-          {errors.requirements && (
-            <p className="error-message">{errors.requirements.message}</p>
+          {errors.comments && (
+            <p className="error-message">{errors.comments.message}</p>
           )}
         </div>
 
@@ -289,7 +231,7 @@ const ContactForm: React.FC = () => {
         <p className="text-sm text-gray-600 text-center">
           Or contact us directly at{' '}
           <a href="tel:+918147018156" className="text-primary-900 font-medium hover:underline">
-            +91 8147018156
+            +91-8147018156
           </a>{' '}
           or{' '}
           <a href="mailto:admin@impulse-vlsi.com" className="text-primary-900 font-medium hover:underline">

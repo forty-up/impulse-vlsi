@@ -2,12 +2,11 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import nodemailer from 'nodemailer';
 
 interface ContactFormData {
-  fullName: string;
-  phoneNumber: string;
+  name: string;
   email: string;
-  serviceType: string;
-  specificSelection: string;
-  requirements: string;
+  mobileNumber: string;
+  courseName: string;
+  comments?: string;
 }
 
 interface ApiResponse {
@@ -42,15 +41,9 @@ const checkRateLimit = (ip: string): boolean => {
 const validateInput = (data: ContactFormData): string[] => {
   const errors: string[] = [];
 
-  // Full name validation
-  if (!data.fullName || data.fullName.trim().length < 2) {
-    errors.push('Full name must be at least 2 characters long');
-  }
-
-  // Phone number validation (Indian format)
-  const phoneRegex = /^[6-9]\d{9}$/;
-  if (!data.phoneNumber || !phoneRegex.test(data.phoneNumber)) {
-    errors.push('Please enter a valid Indian phone number');
+  // Name validation
+  if (!data.name || data.name.trim().length < 2) {
+    errors.push('Name must be at least 2 characters long');
   }
 
   // Email validation
@@ -59,20 +52,20 @@ const validateInput = (data: ContactFormData): string[] => {
     errors.push('Please enter a valid email address');
   }
 
-  // Service type validation
-  const validServiceTypes = ['industrial', 'academic', 'courses'];
-  if (!data.serviceType || !validServiceTypes.includes(data.serviceType)) {
-    errors.push('Please select a valid service type');
+  // Phone number validation (Indian format)
+  const phoneRegex = /^[6-9]\d{9}$/;
+  if (!data.mobileNumber || !phoneRegex.test(data.mobileNumber)) {
+    errors.push('Please enter a valid Indian mobile number');
   }
 
-  // Specific selection validation
-  if (!data.specificSelection || data.specificSelection.trim().length === 0) {
-    errors.push('Please select a specific service');
+  // Course name validation
+  if (!data.courseName || data.courseName.trim().length === 0) {
+    errors.push('Please select a course');
   }
 
-  // Requirements validation (optional but limited)
-  if (data.requirements && data.requirements.length > 500) {
-    errors.push('Requirements should not exceed 500 characters');
+  // Comments validation (optional but limited)
+  if (data.comments && data.comments.length > 500) {
+    errors.push('Comments should not exceed 500 characters');
   }
 
   return errors;
@@ -80,52 +73,31 @@ const validateInput = (data: ContactFormData): string[] => {
 
 // Sanitize input data
 const sanitizeInput = (data: ContactFormData): ContactFormData => {
+  const removeScripts = (str: string) =>
+    str.trim().replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '');
+
   return {
-    fullName: data.fullName.trim().replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ''),
-    phoneNumber: data.phoneNumber.replace(/[^0-9]/g, ''),
+    name: removeScripts(data.name),
     email: data.email.trim().toLowerCase(),
-    serviceType: data.serviceType.trim(),
-    specificSelection: data.specificSelection.trim(),
-    requirements: data.requirements.trim().replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, ''),
+    mobileNumber: data.mobileNumber.replace(/[^0-9]/g, ''),
+    courseName: removeScripts(data.courseName),
+    comments: data.comments ? removeScripts(data.comments) : '',
   };
 };
 
-// Get service type labels
-const getServiceTypeLabel = (serviceType: string): string => {
+// Get course label
+const getCourseLabel = (courseValue: string): string => {
   const labels: { [key: string]: string } = {
-    industrial: 'Industrial Services',
-    academic: 'Academic Services',
-    courses: 'VLSI Courses',
+    'analog-circuit-design': 'Analog Circuit Design',
+    'analog-layout-design': 'Analog/Custom Layout Design',
+    'physical-design': 'Physical Design',
+    'digital-rtl-verification': 'Digital/RTL Design & Verification',
+    'dft': 'Design for Testability',
+    'fpga': 'Design with FPGA',
+    'embedded-iot': 'Embedded Systems / IOT',
+    'post-silicon': 'Post Silicon Validation',
   };
-  return labels[serviceType] || serviceType;
-};
-
-// Get specific selection labels
-const getSpecificSelectionLabel = (serviceType: string, specificSelection: string): string => {
-  const labels: { [key: string]: { [key: string]: string } } = {
-    industrial: {
-      consultancy: 'Consultancy',
-      'fulltime-hiring': 'Full Time Hiring',
-      'co-hiring': 'Co-Hiring',
-    },
-    academic: {
-      fdp: 'Faculty Development Program',
-      'skill-development': 'Skill Development Program',
-      internships: 'Internships',
-      'academic-projects': 'Academic Projects',
-      guidance: 'Guidance & Mentorship',
-      'integrated-courses': 'Integrated Courses',
-    },
-    courses: {
-      'analog-design': 'Analog Circuit Design',
-      'physical-design': 'Physical Circuit Design',
-      'digital-verification': 'Digital Design & Verification',
-      'fpga-programming': 'FPGA Programming',
-      'asic-design': 'ASIC Design',
-      'system-verilog': 'System Verilog',
-    },
-  };
-  return labels[serviceType]?.[specificSelection] || specificSelection;
+  return labels[courseValue] || courseValue;
 };
 
 export default async function handler(
@@ -166,82 +138,151 @@ export default async function handler(
       });
     }
 
-    // Create email transporter
+    // Debug: Check if environment variables are loaded
+    console.log('EMAIL_USER:', process.env.EMAIL_USER);
+    console.log('EMAIL_PASS exists:', !!process.env.EMAIL_PASS);
+    console.log('ADMIN_EMAIL:', process.env.ADMIN_EMAIL);
+
+    // Create email transporter with explicit SMTP settings
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // or use SMTP settings
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // true for 465, false for other ports
       auth: {
-        user: process.env.EMAIL_USER || 'your-email@gmail.com',
-        pass: process.env.EMAIL_PASS || 'your-app-password',
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     // Prepare email content
-    const serviceTypeLabel = getServiceTypeLabel(sanitizedData.serviceType);
-    const specificSelectionLabel = getSpecificSelectionLabel(
-      sanitizedData.serviceType,
-      sanitizedData.specificSelection
-    );
+    const courseLabel = getCourseLabel(sanitizedData.courseName);
 
-    // Admin notification email
+    // Admin notification email with professional styling
     const adminEmailContent = `
-      <h2>New Inquiry from Impulse-VLSI Website</h2>
-      <h3>Contact Details:</h3>
-      <ul>
-        <li><strong>Name:</strong> ${sanitizedData.fullName}</li>
-        <li><strong>Phone:</strong> ${sanitizedData.phoneNumber}</li>
-        <li><strong>Email:</strong> ${sanitizedData.email}</li>
-      </ul>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+          .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px; }
+          .info-box { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; border-left: 4px solid #667eea; }
+          .label { font-weight: bold; color: #667eea; }
+          .footer { text-align: center; margin-top: 20px; padding: 20px; color: #666; font-size: 12px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1 style="margin: 0;">🎓 New Course Inquiry</h1>
+            <p style="margin: 10px 0 0 0;">Impulse VLSI Website</p>
+          </div>
+          <div class="content">
+            <div class="info-box">
+              <h3 style="margin-top: 0; color: #667eea;">👤 Student Information</h3>
+              <p><span class="label">Name:</span> ${sanitizedData.name}</p>
+              <p><span class="label">Email:</span> <a href="mailto:${sanitizedData.email}">${sanitizedData.email}</a></p>
+              <p><span class="label">Mobile:</span> <a href="tel:+91${sanitizedData.mobileNumber}">+91-${sanitizedData.mobileNumber}</a></p>
+            </div>
 
-      <h3>Inquiry Details:</h3>
-      <ul>
-        <li><strong>Service Type:</strong> ${serviceTypeLabel}</li>
-        <li><strong>Specific Selection:</strong> ${specificSelectionLabel}</li>
-      </ul>
+            <div class="info-box">
+              <h3 style="margin-top: 0; color: #667eea;">📚 Course Details</h3>
+              <p><span class="label">Course Interested:</span> ${courseLabel}</p>
+            </div>
 
-      ${sanitizedData.requirements ? `
-      <h3>Requirements:</h3>
-      <p>${sanitizedData.requirements}</p>
-      ` : ''}
+            ${sanitizedData.comments ? `
+            <div class="info-box">
+              <h3 style="margin-top: 0; color: #667eea;">💬 Additional Comments</h3>
+              <p style="background: #f1f3f5; padding: 15px; border-radius: 5px; white-space: pre-wrap;">${sanitizedData.comments}</p>
+            </div>
+            ` : ''}
 
-      <hr>
-      <p><em>This inquiry was submitted on ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })} IST</em></p>
+            <div style="background: #e7f5ff; padding: 15px; border-radius: 8px; margin-top: 20px; border-left: 4px solid #1c7ed6;">
+              <p style="margin: 0;"><strong>⏰ Submitted:</strong> ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata', dateStyle: 'full', timeStyle: 'short' })} IST</p>
+            </div>
+          </div>
+          <div class="footer">
+            <p>This inquiry was automatically forwarded from your website contact form.</p>
+          </div>
+        </div>
+      </body>
+      </html>
     `;
 
-    // User confirmation email
+    // User confirmation email with professional styling
     const userEmailContent = `
-      <h2>Thank you for your inquiry!</h2>
-      <p>Dear ${sanitizedData.fullName},</p>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 30px; text-align: center; border-radius: 10px 10px 0 0; }
+          .content { background: #f8f9fa; padding: 30px; border-radius: 0 0 10px 10px; }
+          .info-box { background: white; padding: 20px; margin: 15px 0; border-radius: 8px; }
+          .cta-button { display: inline-block; background: #667eea; color: white; padding: 12px 30px; text-decoration: none; border-radius: 5px; margin: 20px 0; }
+          .contact-info { background: #e7f5ff; padding: 20px; border-radius: 8px; margin-top: 20px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1 style="margin: 0;">✨ Thank You for Your Interest!</h1>
+            <p style="margin: 10px 0 0 0;">Impulse VLSI</p>
+          </div>
+          <div class="content">
+            <p>Dear <strong>${sanitizedData.name}</strong>,</p>
 
-      <p>We have received your inquiry regarding <strong>${specificSelectionLabel}</strong> and will get back to you within 24 hours.</p>
+            <p>Thank you for reaching out to us! We have successfully received your inquiry regarding <strong>${courseLabel}</strong>.</p>
 
-      <h3>Your Inquiry Summary:</h3>
-      <ul>
-        <li><strong>Service Type:</strong> ${serviceTypeLabel}</li>
-        <li><strong>Specific Selection:</strong> ${specificSelectionLabel}</li>
-        <li><strong>Contact Phone:</strong> ${sanitizedData.phoneNumber}</li>
-      </ul>
+            <div class="info-box">
+              <h3 style="margin-top: 0; color: #667eea;">📋 Your Inquiry Summary</h3>
+              <p><strong>Course:</strong> ${courseLabel}</p>
+              <p><strong>Contact Email:</strong> ${sanitizedData.email}</p>
+              <p><strong>Contact Phone:</strong> +91-${sanitizedData.mobileNumber}</p>
+            </div>
 
-      <p>If you have any urgent questions, please feel free to call us at <strong>+91 8147018156</strong>.</p>
+            <div style="background: #d3f9d8; padding: 20px; border-radius: 8px; border-left: 4px solid #37b24d; margin: 20px 0;">
+              <p style="margin: 0;"><strong>⏰ What's Next?</strong></p>
+              <p style="margin: 10px 0 0 0;">Our team will review your inquiry and contact you within <strong>24 hours</strong> to discuss the course details, schedule, and next steps.</p>
+            </div>
 
-      <p>Best regards,<br>
-      Impulse-VLSI Team<br>
-      Email: admin@impulse-vlsi.com<br>
-      Phone: +91 8147018156</p>
+            <div class="contact-info">
+              <h3 style="margin-top: 0; color: #1c7ed6;">📞 Need Immediate Assistance?</h3>
+              <p style="margin: 5px 0;"><strong>Phone:</strong> <a href="tel:+918147018156" style="color: #1c7ed6; text-decoration: none;">+91-8147018156</a></p>
+              <p style="margin: 5px 0;"><strong>Email:</strong> <a href="mailto:admin@impulse-vlsi.com" style="color: #1c7ed6; text-decoration: none;">admin@impulse-vlsi.com</a></p>
+              <p style="margin: 5px 0;"><strong>Office Hours:</strong> Monday - Friday, 9:00 AM - 6:00 PM IST</p>
+            </div>
+
+            <p style="margin-top: 30px;">We look forward to helping you advance your career in VLSI design!</p>
+
+            <p style="margin-top: 30px;">Best regards,<br>
+            <strong>The Impulse VLSI Team</strong><br>
+            <em>Empowering VLSI Engineers</em></p>
+          </div>
+        </div>
+      </body>
+      </html>
     `;
 
     // Send admin notification email
     await transporter.sendMail({
-      from: process.env.EMAIL_USER || 'noreply@impulse-vlsi.com',
-      to: 'admin@impulse-vlsi.com',
-      subject: `New Inquiry: ${serviceTypeLabel} - ${sanitizedData.fullName}`,
+      from: `"Impulse VLSI" <${process.env.EMAIL_USER}>`,
+      to: process.env.ADMIN_EMAIL || 'admin@impulse-vlsi.com',
+      subject: `🎓 New Course Inquiry: ${courseLabel} - ${sanitizedData.name}`,
       html: adminEmailContent,
+      replyTo: sanitizedData.email,
     });
 
     // Send user confirmation email
     await transporter.sendMail({
-      from: process.env.EMAIL_USER || 'noreply@impulse-vlsi.com',
+      from: `"Impulse VLSI" <${process.env.EMAIL_USER}>`,
       to: sanitizedData.email,
-      subject: 'Thank you for your inquiry - Impulse-VLSI',
+      subject: '✨ Thank you for your inquiry - Impulse VLSI',
       html: userEmailContent,
     });
 

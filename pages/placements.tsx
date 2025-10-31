@@ -71,14 +71,11 @@ const PlacementsPage: React.FC = () => {
   };
 
   const companyLogos = [
-    { name: 'Intel', logo: '/images/companies/intel.png' },
+    { name: 'Intel', logo: '/images/companies/intel.jpg' },
     { name: 'Samsung', logo: '/images/companies/samsung.png' },
-    { name: 'Synopsys', logo: '/images/companies/synopsys.png' },
-    { name: 'Skyworks', logo: '/images/companies/skyworks.png' },
-    { name: 'Marvell', logo: '/images/companies/marvell.png' },
-    { name: 'Fraunhofer', logo: '/images/companies/fraunhofer.png' },
-    { name: 'BigEndian Semiconductors', logo: '/images/companies/bigendian.png' },
-    { name: 'Mistral', logo: '/images/companies/mistral.png' },
+    { name: 'Synopsys', logo: '/images/companies/synopsys.jpg' },
+    { name: 'Cadence', logo: '/images/companies/cadence.jpg' },
+    { name: 'AMD', logo: '/images/companies/AMD.jpg' },
   ];
 
   const placementImages = [
@@ -165,16 +162,16 @@ const PlacementsPage: React.FC = () => {
       course: 'Analog/RF Signal Design',
       company: 'Marvell Semiconductors',
       designation: 'Analog/RF Signal Engineer',
-      location: 'United States',
+      location: 'Germany',
       image: '/images/students/shiva.jpg',
       quote: 'Impulse-VLSI\'s training helped me secure an international position in the US.',
     },
     {
-      name: 'Vishnu',
+      name: 'Vishnu K',
       course: 'Analog Design',
       company: 'Skyworks Solutions',
       designation: 'Analog Design Engineer',
-      location: 'Germany',
+      location: 'US',
       image: '/images/students/vishnu.jpg',
       quote: 'The comprehensive analog design training opened doors to international opportunities.',
     },
@@ -206,7 +203,7 @@ const PlacementsPage: React.FC = () => {
         ref={heroRef}
         className="relative py-24 md:py-32 overflow-hidden"
         style={{
-          background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
+          background: 'linear-gradient(135deg, #7c2d12 0%, #f97316 100%)',
         }}
       >
         <div className="absolute inset-0 opacity-10">
@@ -324,18 +321,21 @@ const PlacementsPage: React.FC = () => {
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-8">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
             {companyLogos.map((company, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="card p-6 flex items-center justify-center hover:shadow-xl transition-shadow duration-300"
+                className="group relative bg-white rounded-xl p-4 md:p-8 flex items-center justify-center border border-gray-200 hover:border-primary-500 hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-1"
               >
-                <div className="w-20 h-12 bg-gray-100 rounded flex items-center justify-center">
-                  <span className="text-xs text-gray-500 font-medium">{company.name}</span>
-                </div>
+                <img
+                  src={company.logo}
+                  alt={company.name}
+                  className="w-full h-24 object-contain transition-transform duration-300 group-hover:scale-110"
+                  title={company.name}
+                />
               </motion.div>
             ))}
           </div>
@@ -364,7 +364,9 @@ const PlacementsPage: React.FC = () => {
                 className="card p-8"
               >
                 <div className="flex items-center mb-6">
-                  <div className="w-16 h-16 bg-gray-200 rounded-full mr-4"></div>
+                  <div className="w-16 h-16 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full mr-4 flex items-center justify-center text-white font-bold text-2xl">
+                    {story.name.charAt(0).toUpperCase()}
+                  </div>
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">{story.name}</h3>
                     <p className="text-gray-600 text-sm">{story.course}</p>
@@ -413,26 +415,6 @@ const PlacementsPage: React.FC = () => {
                 </div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="section-padding bg-primary-900">
-        <div className="container-max text-center text-white">
-          <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-            Ready to Start Your Career Journey?
-          </h2>
-          <p className="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-            Join our successful alumni and land your dream job in the semiconductor industry.
-          </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <a href="/courses" className="btn-accent">
-              Explore Courses
-            </a>
-            <a href="/contact" className="btn-secondary">
-              Get Career Guidance
-            </a>
           </div>
         </div>
       </section>

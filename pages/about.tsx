@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import Layout from '@/components/Layout';
@@ -19,6 +19,69 @@ const AboutPage: React.FC = () => {
   const [philosophyRef, philosophyInView] = useInView({ threshold: 0.1, triggerOnce: true });
   const [whoWeAreRef, whoWeAreInView] = useInView({ threshold: 0.1, triggerOnce: true });
   const [whatWeDoRef, whatWeDoInView] = useInView({ threshold: 0.1, triggerOnce: true });
+  const [statsRef, statsInView] = useInView({ threshold: 0.3, triggerOnce: true });
+
+  // Counter states
+  const [studentCount, setStudentCount] = useState(0);
+  const [partnerCount, setPartnerCount] = useState(0);
+  const [yearCount, setYearCount] = useState(0);
+  const [successCount, setSuccessCount] = useState(0);
+
+  // Animate counters when stats section is in view
+  useEffect(() => {
+    if (statsInView) {
+      // Students counter (0 to 500)
+      const studentInterval = setInterval(() => {
+        setStudentCount((prev) => {
+          if (prev >= 500) {
+            clearInterval(studentInterval);
+            return 500;
+          }
+          return prev + 10;
+        });
+      }, 20);
+
+      // Partners counter (0 to 50)
+      const partnerInterval = setInterval(() => {
+        setPartnerCount((prev) => {
+          if (prev >= 50) {
+            clearInterval(partnerInterval);
+            return 50;
+          }
+          return prev + 1;
+        });
+      }, 40);
+
+      // Years counter (0 to 10)
+      const yearInterval = setInterval(() => {
+        setYearCount((prev) => {
+          if (prev >= 10) {
+            clearInterval(yearInterval);
+            return 10;
+          }
+          return prev + 1;
+        });
+      }, 100);
+
+      // Success rate counter (0 to 95)
+      const successInterval = setInterval(() => {
+        setSuccessCount((prev) => {
+          if (prev >= 95) {
+            clearInterval(successInterval);
+            return 95;
+          }
+          return prev + 1;
+        });
+      }, 20);
+
+      return () => {
+        clearInterval(studentInterval);
+        clearInterval(partnerInterval);
+        clearInterval(yearInterval);
+        clearInterval(successInterval);
+      };
+    }
+  }, [statsInView]);
 
   const processSteps = [
     {
@@ -58,7 +121,7 @@ const AboutPage: React.FC = () => {
         ref={heroRef}
         className="relative py-24 md:py-32 overflow-hidden"
         style={{
-          background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
+          background: 'linear-gradient(135deg, #7c2d12 0%, #f97316 100%)',
         }}
       >
         <div className="absolute inset-0 opacity-10">
@@ -159,22 +222,22 @@ const AboutPage: React.FC = () => {
                   of excellence in VLSI education and innovation.
                 </p>
 
-                <div className="grid grid-cols-2 gap-6 mt-8">
+                <div ref={statsRef} className="grid grid-cols-2 gap-4 md:gap-6 mt-8">
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-primary-900 mb-2">500+</div>
-                    <div className="text-gray-600">Students Trained</div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary-900 mb-2">{studentCount}+</div>
+                    <div className="text-sm md:text-base text-gray-600">Students Trained</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-primary-900 mb-2">50+</div>
-                    <div className="text-gray-600">Industry Partners</div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary-900 mb-2">{partnerCount}+</div>
+                    <div className="text-sm md:text-base text-gray-600">Industry Partners</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-primary-900 mb-2">10+</div>
-                    <div className="text-gray-600">Years Experience</div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary-900 mb-2">{yearCount}+</div>
+                    <div className="text-sm md:text-base text-gray-600">Years Experience</div>
                   </div>
                   <div className="text-center">
-                    <div className="text-3xl font-bold text-primary-900 mb-2">95%</div>
-                    <div className="text-gray-600">Success Rate</div>
+                    <div className="text-2xl md:text-3xl font-bold text-primary-900 mb-2">{successCount}%</div>
+                    <div className="text-sm md:text-base text-gray-600">Success Rate</div>
                   </div>
                 </div>
               </div>
@@ -289,65 +352,6 @@ const AboutPage: React.FC = () => {
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
               </motion.div>
             ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Information Bar */}
-      <section className="section-padding bg-primary-900">
-        <div className="container-max">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-white">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-              className="text-center md:text-left"
-            >
-              <div className="flex items-center justify-center md:justify-start mb-4">
-                <Phone className="w-6 h-6 text-accent-500 mr-3" />
-                <h3 className="text-xl font-semibold">Call Us</h3>
-              </div>
-              <a
-                href="tel:+918147018156"
-                className="text-lg hover:text-accent-500 transition-colors duration-300"
-              >
-                +91 8147018156
-              </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-center"
-            >
-              <div className="flex items-center justify-center mb-4">
-                <Mail className="w-6 h-6 text-accent-500 mr-3" />
-                <h3 className="text-xl font-semibold">Email Us</h3>
-              </div>
-              <a
-                href="mailto:admin@impulse-vlsi.com"
-                className="text-lg hover:text-accent-500 transition-colors duration-300"
-              >
-                admin@impulse-vlsi.com
-              </a>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.4 }}
-              className="text-center md:text-right"
-            >
-              <div className="flex items-center justify-center md:justify-end mb-4">
-                <MapPin className="w-6 h-6 text-accent-500 mr-3" />
-                <h3 className="text-xl font-semibold">Visit Us</h3>
-              </div>
-              <p className="text-lg">
-                VLSI Design Center<br />
-                Innovation Hub, India
-              </p>
-            </motion.div>
           </div>
         </div>
       </section>

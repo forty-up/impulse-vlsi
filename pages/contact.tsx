@@ -22,7 +22,7 @@ const ContactPage: React.FC = () => {
       icon: Phone,
       title: 'Call Us',
       description: 'Speak directly with our advisors',
-      value: '+91 8147018156',
+      value: '+91-8147018156',
       action: 'tel:+918147018156',
       availability: 'Mon-Fri, 9 AM - 6 PM',
     },
@@ -72,7 +72,7 @@ const ContactPage: React.FC = () => {
   return (
     <Layout
       title="Contact Us"
-      description="Get in touch with Impulse-VLSI for courses, services, and career guidance. Call +91 8147018156 or email admin@impulse-vlsi.com"
+      description="Get in touch with Impulse-VLSI for courses, services, and career guidance. Call +91-8147018156 or email admin@impulse-vlsi.com"
       canonical="/contact"
     >
       {/* Hero Banner */}
@@ -80,7 +80,7 @@ const ContactPage: React.FC = () => {
         ref={heroRef}
         className="relative py-24 md:py-32 overflow-hidden"
         style={{
-          background: 'linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%)',
+          background: 'linear-gradient(135deg, #7c2d12 0%, #f97316 100%)',
         }}
       >
         <div className="absolute inset-0 opacity-10">
@@ -116,9 +116,12 @@ const ContactPage: React.FC = () => {
                 transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="card p-8 text-center group hover:shadow-xl transition-all duration-300"
               >
-                <div className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-500 transition-colors duration-300">
+                <a
+                  href={method.action}
+                  className="w-16 h-16 bg-primary-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:bg-primary-500 transition-colors duration-300 cursor-pointer"
+                >
                   <method.icon className="w-8 h-8 text-primary-900 group-hover:text-white transition-colors duration-300" />
-                </div>
+                </a>
 
                 <h3 className="text-xl font-heading font-bold text-gray-900 mb-3">
                   {method.title}
@@ -171,9 +174,11 @@ const ContactPage: React.FC = () => {
                     <div>
                       <h4 className="font-semibold text-gray-900 mb-1">Address</h4>
                       <p className="text-gray-600">
-                        VLSI Design Center<br />
-                        Innovation Hub<br />
-                        India
+                        Nirmala store, Bus stop,<br />
+                        50 Feet Main Rd, 2nd Block,<br />
+                        Hanumanthnagar, Banashankari 1st Stage,<br />
+                        Banashankari, Bengaluru,<br />
+                        Karnataka 560050, India
                       </p>
                     </div>
                   </div>
@@ -186,7 +191,7 @@ const ContactPage: React.FC = () => {
                         href="tel:+918147018156"
                         className="text-gray-600 hover:text-primary-900 transition-colors"
                       >
-                        +91 8147018156
+                        +91-8147018156
                       </a>
                     </div>
                   </div>
@@ -259,59 +264,6 @@ const ContactPage: React.FC = () => {
               </div>
             </motion.div>
           </div>
-        </div>
-      </section>
-
-      {/* Map Section (Placeholder) */}
-      {/* <section className="section-padding">
-        <div className="container-max">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="card overflow-hidden"
-          >
-            <div className="aspect-video bg-gray-100 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-gray-600 mb-2">
-                  Interactive Map
-                </h3>
-                <p className="text-gray-500">
-                  Google Maps integration will be displayed here
-                </p>
-              </div>
-            </div>
-          </motion.div>
-        </div>
-      </section> */}
-
-      {/* CTA Section */}
-      <section className="section-padding bg-primary-900">
-        <div className="container-max text-center text-white">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            <Headphones className="w-16 h-16 mx-auto mb-6 text-accent-500" />
-            <h2 className="text-3xl md:text-4xl font-heading font-bold mb-6">
-              Need Immediate Assistance?
-            </h2>
-            <p className="text-xl text-gray-100 mb-8 max-w-2xl mx-auto">
-              Our expert advisors are ready to help you choose the right course and start your VLSI career journey.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a href="tel:+918147018156" className="btn-accent group flex items-center justify-center">
-                <Phone className="w-5 h-5 mr-2 flex-shrink-0" />
-                <span className="whitespace-nowrap">Call Now: +91 8147018156</span>
-              </a>
-              <a href="mailto:admin@impulse-vlsi.com" className="btn-secondary group flex items-center justify-center">
-                <Send className="w-5 h-5 mr-2 flex-shrink-0" />
-                <span className="whitespace-nowrap">Send Email</span>
-              </a>
-            </div>
-          </motion.div>
         </div>
       </section>
     </Layout>

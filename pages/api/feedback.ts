@@ -227,13 +227,18 @@ export default async function handler(
       });
     }
 
-    // Create email transporter
+    // Create email transporter with explicit SMTP settings
     const transporter = nodemailer.createTransport({
-      service: 'gmail', // or use SMTP settings
+      host: 'smtp.gmail.com',
+      port: 587,
+      secure: false, // true for 465, false for other ports
       auth: {
-        user: process.env.EMAIL_USER || 'your-email@gmail.com',
-        pass: process.env.EMAIL_PASS || 'your-app-password',
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_PASS,
       },
+      tls: {
+        rejectUnauthorized: false
+      }
     });
 
     // Prepare email content
@@ -282,8 +287,8 @@ export default async function handler(
       </div>
 
       ${sanitizedData.additionalComments ? `
-      <div style="background-color: #eff6ff; padding: 15px; border-left: 4px solid #3b82f6; margin: 20px 0;">
-        <h3 style="color: #2563eb; margin-top: 0;">💬 Additional Comments:</h3>
+      <div style="background-color: #fff7ed; padding: 15px; border-left: 4px solid #f97316; margin: 20px 0;">
+        <h3 style="color: #ea580c; margin-top: 0;">💬 Additional Comments:</h3>
         <p>${sanitizedData.additionalComments}</p>
       </div>
       ` : ''}
@@ -311,7 +316,7 @@ export default async function handler(
 
       <p>If you have any further questions or concerns, please don't hesitate to reach out to us:</p>
       <ul>
-        <li><strong>Phone:</strong> +91 8147018156</li>
+        <li><strong>Phone:</strong> +91-8147018156</li>
         <li><strong>Email:</strong> admin@impulse-vlsi.com</li>
       </ul>
 
@@ -320,22 +325,23 @@ export default async function handler(
       <p>Best regards,<br>
       Impulse-VLSI Team<br>
       Email: admin@impulse-vlsi.com<br>
-      Phone: +91 8147018156</p>
+      Phone: +91-8147018156</p>
     `;
 
     // Send admin notification email
     await transporter.sendMail({
-      from: process.env.EMAIL_USER || 'noreply@impulse-vlsi.com',
-      to: 'admin@impulse-vlsi.com',
-      subject: `New Feedback: ${serviceLabel} - ${averageRating}/5.0 ⭐ - ${sanitizedData.fullName}`,
+      from: `"Impulse VLSI Feedback" <${process.env.EMAIL_USER}>`,
+      to: process.env.ADMIN_EMAIL || 'admin@impulse-vlsi.com',
+      subject: `📊 New Feedback: ${serviceLabel} - ${averageRating}/5.0 ⭐ - ${sanitizedData.fullName}`,
       html: adminEmailContent,
+      replyTo: sanitizedData.email,
     });
 
     // Send user confirmation email
     await transporter.sendMail({
-      from: process.env.EMAIL_USER || 'noreply@impulse-vlsi.com',
+      from: `"Impulse VLSI" <${process.env.EMAIL_USER}>`,
       to: sanitizedData.email,
-      subject: 'Thank you for your feedback - Impulse-VLSI',
+      subject: '💙 Thank you for your feedback - Impulse VLSI',
       html: userEmailContent,
     });
 

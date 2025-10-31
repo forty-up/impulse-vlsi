@@ -214,7 +214,7 @@ The website is optimized for:
 
 ## 📞 Contact Information
 
-- **Phone**: +91 8147018156
+- **Phone**: +91-8147018156
 - **Email**: admin@impulse-vlsi.com
 - **Website**: [Impulse-VLSI](#)
 

@@ -15,12 +15,14 @@ import {
   Play,
   Users,
   CheckCircle,
+  X,
 } from 'lucide-react';
 
 const HomePage: React.FC = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [currentImage, setCurrentImage] = useState(0);
+  const [selectedProgram, setSelectedProgram] = useState<string | null>(null);
 
   // Animation refs
   const [heroRef, heroInView] = useInView({ threshold: 0.1, triggerOnce: true });
@@ -33,34 +35,54 @@ const HomePage: React.FC = () => {
     '/images/2.jpg',
     '/images/3.jpg',
     '/images/4.jpg',
-    '/images/5.jpg',
   ];
 
-  // Sample data
+  // Real Google Reviews
   const testimonials = [
     {
-      name: 'Rajesh Kumar',
-      designation: 'Senior Design Engineer',
-      company: 'Intel Corporation',
+      name: 'Hima Bindu',
+      designation: 'VLSI Trainee',
+      company: 'Google Reviewer',
       rating: 5,
-      text: 'Impulse-VLSI provided excellent training that directly contributed to my career growth. The practical approach and industry-relevant curriculum made all the difference.',
-      image: '/images/testimonials/rajesh.jpg',
+      text: 'I had a great learning experience at Impulse VLSI. The trainers were supportive, and the hands-on sessions with tools like Cadence really helped me build confidence. The concepts were explained clearly, and the projects made everything more practical. Overall, it was a solid step toward starting my VLSI career.',
+      image: '/images/testimonials/hima.jpg',
+      timeAgo: '5 months ago',
     },
     {
-      name: 'Priya Sharma',
-      designation: 'VLSI Engineer',
-      company: 'Qualcomm',
+      name: 'Bhuvan G S',
+      designation: 'VLSI Student',
+      company: 'Google Reviewer',
       rating: 5,
-      text: 'The hands-on experience and expert guidance I received helped me secure my dream job. Highly recommend their courses to anyone serious about VLSI.',
-      image: '/images/testimonials/priya.jpg',
+      text: 'The classes were informative and engaging. Hands-on experience with Cadence tool was helpful. Overall, a great learning experience!',
+      image: '/images/testimonials/bhuvan.jpg',
+      timeAgo: '7 months ago',
     },
     {
-      name: 'Dr. Anil Verma',
-      designation: 'Professor',
-      company: 'IIT Delhi',
+      name: 'RUTHVIK R',
+      designation: 'Local Guide',
+      company: 'Google Reviewer',
       rating: 5,
-      text: 'Their faculty development program significantly enhanced our department\'s capabilities. The trainers are industry experts with deep knowledge.',
-      image: '/images/testimonials/anil.jpg',
+      text: 'It was really great attending this session. Learnt many things in VLSI which would really help for future performance. I attend a workshop for 5 days which was really great where they included all topics from scratch to the top level. Really was were good.',
+      image: '/images/testimonials/ruthvik.jpg',
+      timeAgo: '2 months ago',
+    },
+    {
+      name: 'Lasya Shashidhara',
+      designation: 'VLSI Trainee',
+      company: 'Google Reviewer',
+      rating: 5,
+      text: 'This session was very helpful for me. I learnt so many things beyond the syllabus. It was a very good session where they taught us how to clear tests and covered analog circuit and digital circuits. Thanks for conducting this training.',
+      image: '/images/testimonials/lasya.jpg',
+      timeAgo: '3 months ago',
+    },
+    {
+      name: 'Bhumika K.R',
+      designation: 'VLSI Student',
+      company: 'Google Reviewer',
+      rating: 5,
+      text: 'The session was very informative and well-presented. Thank you to the presenters for explaining concepts clearly and answering all doubts. More hands-on practice sessions and real-time circuit design demonstrations could make it even more engaging and beneficial for participants.',
+      image: '/images/testimonials/bhumika.jpg',
+      timeAgo: '2 months ago',
     },
   ];
 
@@ -158,29 +180,49 @@ const HomePage: React.FC = () => {
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-heading font-bold mb-6 text-shadow-lg">
-              Empowering Innovation in{' '}
-              <span className="text-accent-500">VLSI Design</span>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-heading font-bold mb-6 text-shadow-lg px-4">
+              {currentImage === 0 && 'Join us to follow your passion in semiconductor domain'}
+              {currentImage === 1 && 'Factory of Talents'}
+              {currentImage === 2 && 'Right Talent meet Right Industry'}
+              {currentImage === 3 && 'Connecting Campus to Corporates through our services'}
             </h1>
-            <p className="text-xl md:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto">
+            <p className="text-base sm:text-lg md:text-xl lg:text-2xl mb-8 text-gray-100 max-w-3xl mx-auto px-4">
               Industry-Leading Services & Comprehensive Training Programs
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <motion.a
-                href="/services"
-                className="btn-secondary hover:scale-105"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Explore Services
-              </motion.a>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 justify-center max-w-5xl mx-auto px-4">
               <motion.a
                 href="/courses"
-                className="btn-accent hover:scale-105"
+                className="btn-accent hover:scale-105 text-center flex items-center justify-center text-sm md:text-base py-3 md:py-3 whitespace-nowrap"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                View Courses
+                Explore Courses
+              </motion.a>
+              <motion.a
+                href="/services#industrial"
+                className="btn-accent hover:scale-105 text-center flex items-center justify-center text-sm md:text-base py-3 md:py-3"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Industrial Services
+              </motion.a>
+              <motion.a
+                href="/services#academics"
+                className="btn-accent hover:scale-105 text-center flex items-center justify-center text-sm md:text-base py-3 md:py-3"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Academic Services
+              </motion.a>
+              <motion.a
+                href="https://wa.me/918147018156"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="btn-accent hover:scale-105 text-center flex items-center justify-center text-sm md:text-base py-3 md:py-3 whitespace-nowrap"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Contact on WhatsApp
               </motion.a>
             </div>
           </motion.div>
@@ -188,7 +230,40 @@ const HomePage: React.FC = () => {
 
       </section>
 
-      {/* Company Overview Section */}
+      {/* Vision and Mission Section */}
+      <section className="section-padding bg-primary-900 text-white">
+        <div className="container-max">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <motion.div
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="space-y-4"
+            >
+              <h2 className="text-3xl font-heading font-bold">Our Vision</h2>
+              <p className="text-lg text-gray-100 leading-relaxed">
+                "To pioneer great talents by amplifying and transferring the quality content in Electronics / Semiconductor Design Domains & Help Industries to get right talents across the Globe."
+              </p>
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, x: 50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.6 }}
+              viewport={{ once: true }}
+              className="space-y-4"
+            >
+              <h2 className="text-3xl font-heading font-bold">Our Mission</h2>
+              <p className="text-lg text-gray-100 leading-relaxed">
+                "To build highly skilled aspirants & help them and Industries to shape and intensify their future in Electronics / Semiconductor domain".
+              </p>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Why Impulse VLSI Section */}
       <section ref={overviewRef} className="section-padding bg-gray-50">
         <div className="container-max">
           <motion.div
@@ -198,37 +273,47 @@ const HomePage: React.FC = () => {
             className="text-center mb-12"
           >
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
-              Why Choose Impulse-VLSI?
+              Why Impulse VLSI?
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
               Leading the way in VLSI education and industry solutions
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="flex flex-wrap justify-center gap-8">
             {[
               {
                 icon: Zap,
-                title: 'Industry Excellence',
-                description: 'Cutting-edge solutions and consultancy services for semiconductor industry leaders.',
+                title: 'Expertise in both Analog and Digital domains',
+                description: 'Comprehensive training and services covering all aspects of VLSI design.',
               },
               {
                 icon: GraduationCap,
-                title: 'Expert Training',
-                description: 'Comprehensive courses designed by industry experts with hands-on practical experience.',
+                title: 'Experts with 10+ years of industry experience',
+                description: 'Learn from professionals who have worked in leading semiconductor companies.',
               },
               {
                 icon: TrendingUp,
-                title: 'Career Growth',
-                description: 'Proven track record of student placements in top semiconductor companies worldwide.',
+                title: 'Deliver both Industrial and Academic services',
+                description: 'Bridging the gap between academia and industry with tailored solutions.',
+              },
+              {
+                icon: Users,
+                title: 'Hands-On Learning',
+                description: 'Practical, project-based approach to ensure real-world readiness.',
+              },
+              {
+                icon: CheckCircle,
+                title: 'Affordable fee structure',
+                description: 'Quality education and services at competitive prices for everyone.',
               },
             ].map((item, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 30 }}
                 animate={overviewInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="card p-8 text-center group"
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="card p-8 text-center group w-full md:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.5rem)]"
               >
                 <div className="w-16 h-16 mx-auto mb-6 bg-primary-100 rounded-full flex items-center justify-center group-hover:bg-primary-500 transition-colors duration-300">
                   <item.icon className="w-8 h-8 text-primary-900 group-hover:text-white transition-colors duration-300" />
@@ -243,8 +328,60 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* Programs Section */}
+      <section className="section-padding">
+        <div className="container-max">
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            viewport={{ once: true }}
+            className="text-center mb-12"
+          >
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4 px-4">
+              Our Prospectus
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto px-4">
+              Explore our comprehensive training and development programs
+            </p>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 max-w-7xl mx-auto px-4">
+            {[
+              { image: '/prospectus/Screenshot 2025-10-30 173351.png', title: 'Internship Program' },
+              { image: '/prospectus/Screenshot 2025-10-30 173406.png', title: 'Skill Development Program' },
+              { image: '/prospectus/Screenshot 2025-10-30 173421.png', title: 'Pre-Placement Training' },
+              { image: '/prospectus/Screenshot 2025-10-30 180528.png', title: 'Online/Offline Courses' },
+            ].map((program, index) => (
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative overflow-hidden rounded-xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 cursor-pointer"
+                onClick={() => setSelectedProgram(program.image)}
+              >
+                <div className="aspect-[3/4.2] overflow-hidden bg-gray-100 flex items-center justify-center">
+                  <img
+                    src={program.image}
+                    alt={program.title}
+                    className="w-full h-full object-contain transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div className="absolute bottom-0 left-0 right-0 p-4">
+                    <h3 className="text-white font-semibold text-lg">{program.title}</h3>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* Featured Videos Section */}
-      <section ref={videosRef} className="section-padding">
+      <section ref={videosRef} className="section-padding bg-gray-50">
         <div className="container-max">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -294,39 +431,94 @@ const HomePage: React.FC = () => {
         </div>
       </section>
 
+      {/* Google Reviews Section */}
+      <section className="section-padding bg-white">
+        <div className="container-max">
+          <div className="text-center mb-12 px-4">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
+              Google Reviews
+            </h2>
+            <p className="text-base sm:text-lg md:text-xl text-gray-600 mb-6">
+              See what our students and clients say about us
+            </p>
+            <motion.a
+              href="https://www.google.com/maps/search/?api=1&query=Impulse+VLSI+Banashankari+Bengaluru"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-primary inline-flex items-center text-sm sm:text-base"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Star className="w-4 h-4 sm:w-5 sm:h-5 mr-2 fill-current" />
+              View All Google Reviews
+            </motion.a>
+          </div>
+
+          <div className="max-w-4xl mx-auto px-4">
+            <div className="card p-4 sm:p-6 md:p-8 text-center">
+              <div className="flex justify-center mb-4">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="w-6 h-6 sm:w-8 sm:h-8 text-yellow-400 fill-current" />
+                ))}
+              </div>
+              <p className="text-2xl sm:text-3xl font-bold text-gray-900 mb-2">4.8 Rating</p>
+              <p className="text-sm sm:text-base text-gray-600">Based on Google Reviews</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Reviews Section */}
       <section className="section-padding bg-gray-50">
         <div className="container-max">
           <div className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-4">
-              What Our Students Say
+              Real Google Reviews
             </h2>
             <p className="text-xl text-gray-600">
-              Real feedback from our community
+              Authentic feedback from our students and trainees
             </p>
           </div>
 
           <div className="relative max-w-4xl mx-auto">
             <div className="card p-8 md:p-12">
-              <div className="flex items-center mb-6">
-                {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
-                  <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                ))}
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center">
+                  {[...Array(testimonials[currentTestimonial].rating)].map((_, i) => (
+                    <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
+                  ))}
+                </div>
+                <div className="flex items-center text-gray-500 text-sm">
+                  <svg className="w-5 h-5 mr-2" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+                    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+                    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+                    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+                  </svg>
+                  Google Review
+                </div>
               </div>
 
-              <blockquote className="text-lg md:text-xl text-gray-700 mb-6 italic">
+              <blockquote className="text-lg md:text-xl text-gray-700 mb-6">
                 "{testimonials[currentTestimonial].text}"
               </blockquote>
 
-              <div className="flex items-center">
-                <div className="w-12 h-12 bg-gray-200 rounded-full mr-4"></div>
-                <div>
-                  <div className="font-semibold text-gray-900">
-                    {testimonials[currentTestimonial].name}
+              <div className="flex items-center justify-between">
+                <div className="flex items-center">
+                  <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-primary-700 rounded-full mr-4 flex items-center justify-center text-white font-bold text-lg">
+                    {testimonials[currentTestimonial].name.charAt(0)}
                   </div>
-                  <div className="text-gray-600 text-sm">
-                    {testimonials[currentTestimonial].designation}, {testimonials[currentTestimonial].company}
+                  <div>
+                    <div className="font-semibold text-gray-900">
+                      {testimonials[currentTestimonial].name}
+                    </div>
+                    <div className="text-gray-600 text-sm">
+                      {testimonials[currentTestimonial].designation}
+                    </div>
                   </div>
+                </div>
+                <div className="text-gray-500 text-sm">
+                  {testimonials[currentTestimonial].timeAgo}
                 </div>
               </div>
             </div>
@@ -356,41 +548,6 @@ const HomePage: React.FC = () => {
                   }`}
                 />
               ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Enrollment Form Section */}
-      <section className="section-padding">
-        <div className="container-max">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <h2 className="text-3xl md:text-4xl font-heading font-bold text-gray-900 mb-6">
-                Ready to Start Your VLSI Journey?
-              </h2>
-              <p className="text-xl text-gray-600 mb-8">
-                Join thousands of professionals who have advanced their careers with our expert training and industry connections.
-              </p>
-
-              <div className="space-y-4">
-                {[
-                  'Industry-relevant curriculum',
-                  'Hands-on practical experience',
-                  'Expert mentorship',
-                  'Placement assistance',
-                  'Lifetime support',
-                ].map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <CheckCircle className="w-5 h-5 text-success-500" />
-                    <span className="text-gray-700">{feature}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <ContactForm />
             </div>
           </div>
         </div>
@@ -437,6 +594,29 @@ const HomePage: React.FC = () => {
           </div>
         </div>
       </section>
+
+      {/* Image Modal */}
+      {selectedProgram && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-2 sm:p-4"
+          onClick={() => setSelectedProgram(null)}
+        >
+          <button
+            onClick={() => setSelectedProgram(null)}
+            className="absolute top-2 right-2 sm:top-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 bg-white rounded-full flex items-center justify-center hover:bg-gray-200 transition-colors z-10"
+          >
+            <X className="w-5 h-5 sm:w-6 sm:h-6 text-gray-900" />
+          </button>
+          <div className="max-w-full sm:max-w-4xl max-h-[95vh] sm:max-h-[90vh] overflow-auto">
+            <img
+              src={selectedProgram}
+              alt="Program Details"
+              className="w-full h-auto object-contain"
+              onClick={(e) => e.stopPropagation()}
+            />
+          </div>
+        </div>
+      )}
     </Layout>
   );
 };

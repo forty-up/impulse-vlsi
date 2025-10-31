@@ -78,7 +78,7 @@
   }
 
   .gradient-primary {
-    background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+    background: linear-gradient(135deg, #7c2d12 0%, #f97316 100%);
   }
 
   .gradient-accent {
@@ -86,8 +86,19 @@
   }
 
   .gradient-overlay {
-    background: linear-gradient(135deg, rgba(30, 58, 138, 0.8) 0%, rgba(59, 130, 246, 0.6) 100%);
+    background: linear-gradient(135deg, rgba(124, 45, 18, 0.8) 0%, rgba(249, 115, 22, 0.6) 100%);
   }
+}
+
+/* Text selection */
+::selection {
+  background-color: #f97316;
+  color: #ffffff;
+}
+
+::-moz-selection {
+  background-color: #f97316;
+  color: #ffffff;
 }
 
 /* Custom scrollbar */
@@ -116,7 +127,7 @@
 /* Loading animation */
 .loading-spinner {
   border: 4px solid #f3f3f3;
-  border-top: 4px solid #1e3a8a;
+  border-top: 4px solid #7c2d12;
   border-radius: 50%;
   width: 24px;
   height: 24px;
