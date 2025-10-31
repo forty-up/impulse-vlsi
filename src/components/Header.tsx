@@ -54,9 +54,9 @@ const Header: React.FC = () => {
             <img
               src="/images/log impulse.png"
               alt="Impulse VLSI"
-              className="h-12 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
+              className="h-10 sm:h-12 md:h-14 w-auto object-contain transition-transform duration-300 hover:scale-105"
             />
-            <span className="hidden md:inline-block text-xl font-bold text-primary-900">
+            <span className="text-base sm:text-lg md:text-xl font-bold text-primary-900">
               Impulse VLSI<sup className="text-xs">®</sup>
             </span>
           </Link>
