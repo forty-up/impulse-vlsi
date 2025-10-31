@@ -5,14 +5,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Montserrat:wght@600;700&display=swap');
 
 @layer base {
+  /* Fix for mobile viewport height */
+  :root {
+    --vh: 1vh;
+  }
+
   html {
     scroll-behavior: smooth;
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
   }
 
   body {
     font-family: 'Inter', system-ui, sans-serif;
     line-height: 1.6;
     color: #111827;
+    /* Prevent horizontal overflow */
+    overflow-x: hidden;
+    width: 100%;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -69,6 +79,17 @@
 }
 
 @layer utilities {
+  /* Mobile-safe viewport height */
+  .min-h-screen-safe {
+    min-height: 100vh;
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
+
+  .h-screen-safe {
+    height: 100vh;
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
   .text-shadow {
     text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }

@@ -152,7 +152,7 @@ const HomePage: React.FC = () => {
       {/* Hero Section */}
       <section
         ref={heroRef}
-        className="relative min-h-screen flex items-center justify-center overflow-hidden"
+        className="relative min-h-screen-safe flex items-center justify-center overflow-hidden"
       >
         {/* Background Image Slideshow */}
         <div className="absolute inset-0">
