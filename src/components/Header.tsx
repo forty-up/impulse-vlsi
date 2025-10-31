@@ -31,7 +31,7 @@ const Header: React.FC = () => {
         { name: 'Academics', href: '/services#academics' },
       ]
     },
-    { name: 'Placement', href: '/placements' },
+    { name: 'Placements', href: '/placements' },
     { name: 'Contact Us', href: '/contact' },
   ];
 
